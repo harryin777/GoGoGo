@@ -11,31 +11,31 @@ type Person struct {
 	male bool
 }
 
-func main() {
-	fmt.Println("hello world")
-
-	//定义一个多行字符串，必须用`
-	//	s1 := `这是一个多行
-	//字符串`
-	//
-	//	fmt.Println(s1)
-	//	fmt.Println(strings.Contains(s1, "这"))
-	//	//长度
-	//	fmt.Println(len(s1))
-	//	//前缀判断，HasSuffix后缀判断
-	//	fmt.Println(strings.HasPrefix(s1, "这是1"))
-	//	//字串出现的位置，以及LastIndex
-	//	fmt.Println(strings.Index(s1, "字"))
-
-	//traverseStr()
-	//arrParameter := [4]string{"a", "q"}
-	//initArray(arrParameter)
-	//slicePractice()
-	//testDefer()
-	//fmt.Println(getBackValue())
-	testMap()
-
-}
+//func main() {
+//	fmt.Println("hello world")
+//
+//	//定义一个多行字符串，必须用`
+//	//	s1 := `这是一个多行
+//	//字符串`
+//	//
+//	//	fmt.Println(s1)
+//	//	fmt.Println(strings.Contains(s1, "这"))
+//	//	//长度
+//	//	fmt.Println(len(s1))
+//	//	//前缀判断，HasSuffix后缀判断
+//	//	fmt.Println(strings.HasPrefix(s1, "这是1"))
+//	//	//字串出现的位置，以及LastIndex
+//	//	fmt.Println(strings.Index(s1, "字"))
+//
+//	//traverseStr()
+//	//arrParameter := [4]string{"a", "q"}
+//	//initArray(arrParameter)
+//	//slicePractice()
+//	//testDefer()
+//	//fmt.Println(getBackValue())
+//	testMap()
+//
+//}
 
 func traverseStr() {
 	s := "abcdefg"
