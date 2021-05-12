@@ -27,14 +27,14 @@ func main() {
 	//	//字串出现的位置，以及LastIndex
 	//	fmt.Println(strings.Index(s1, "字"))
 
-	//traverseStr()
+	traverseStr()
 	//arrParameter := [4]string{"a", "q"}
 	//initArray(arrParameter)
 	//slicePractice()
 	//testDefer()
 	//fmt.Println(getBackValue())
-	testMap()
-	testStruct()
+	//testMap()
+	//testStruct()
 
 }
 
@@ -48,9 +48,9 @@ func traverseStr() {
 		fmt.Println(s[i])
 		fmt.Printf("%v(%c) ", string(s[i]), s[i])
 	}
-
+	// _代表一个占位符，range循环字符串的时候，前面两个参数是position，character
 	for _, r := range s {
-		fmt.Println(string(r))
+		fmt.Printf("position:%v value:%v", string(r))
 	}
 
 	//强制转化成数组，打印出来也是runa类型，还是需要强转
@@ -125,10 +125,6 @@ func slicePractice() {
 	//元素为map类型的切片
 	slice3 := make([]map[string]string, 8)
 	slice3[0]["aaa"] = "avalue"
-}
-
-func getBackValue() (a int) {
-	return 123
 }
 
 func testDefer() {
