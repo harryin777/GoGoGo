@@ -68,7 +68,7 @@ func initArray(arr [4]string) {
 	}
 	fmt.Println()
 
-	//这个地方使用索引号即下标 ：指定该下标处的元素值
+	//指定下标元素值，初始化并新建数组
 	arr1 := [...]int{1: 5, 6: 1}
 	arr2 := arr1
 	for i := 0; i < len(arr1); i++ {
@@ -82,7 +82,7 @@ func initArray(arr [4]string) {
 	//说明新建一个数组以后内存地址是不同的
 	fmt.Println(&arr1 == &arr2)
 
-	//对象数组，注意最后一个元素是有逗号的
+	//初始化结构体数组
 	target := [...]struct {
 		name string
 		age  uint8
@@ -90,16 +90,14 @@ func initArray(arr [4]string) {
 		{"user1", 1},
 		{"user2", 10},
 	}
+	//普通循环结构体数组
 	for i := 0; i < len(target); i++ {
 		fmt.Print(target[i])
 	}
+	for key, val := range target {
+		fmt.Printf("key:%v, val: %v\n", key, val)
+	}
 
-	target1 := [...]Person{
-		{"person1", 12, false},
-	}
-	for i := 0; i < len(target1); i++ {
-		fmt.Print(target1[i])
-	}
 }
 
 func slicePractice() {
