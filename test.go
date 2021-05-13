@@ -6,9 +6,9 @@ import (
 )
 
 type Person struct {
-	name string
-	age  int
-	male bool
+	Name string
+	Age  int
+	Male bool
 }
 
 func main() {
@@ -50,7 +50,7 @@ func traverseStr() {
 	}
 	// _代表一个占位符，range循环字符串的时候，前面两个参数是position，character
 	for _, r := range s {
-		fmt.Printf("position:%v value:%v", string(r))
+		fmt.Printf("%+v", r)
 	}
 
 	//强制转化成数组，打印出来也是runa类型，还是需要强转
@@ -122,26 +122,9 @@ func slicePractice() {
 		fmt.Print(slice2[i])
 	}
 
-	//元素为map类型的切片
+	//元素为map类型的切片，注意一定在最前面有个[]
 	slice3 := make([]map[string]string, 8)
 	slice3[0]["aaa"] = "avalue"
-}
-
-func testDefer() {
-
-	defer func() {
-		fmt.Println("test1")
-	}()
-
-	fmt.Println("gap111")
-	defer func() {
-		fmt.Println("test2")
-	}()
-	fmt.Println("gap222")
-	defer func() {
-		fmt.Println("test3")
-	}()
-
 }
 
 /**
@@ -174,15 +157,15 @@ func testMap() {
 }
 
 type tem struct {
-	name string `json:"name"`
-	age  int    `json:"age"`
+	Name string `json:"name"`
+	Age  int    `json:"age"`
 }
 
 func testStruct() {
 	name := "aaa"
 	age := 18
 	//新建结构体的语法
-	person := tem{name: name, age: age}
+	person := tem{Name: name, Age: age}
 	fmt.Println(person)
 
 	//匿名结构体
@@ -203,7 +186,7 @@ func testStruct() {
 
 	//使用键值对初始化可以初始化部分字段，其他字段保留零值
 	p2 := tem{
-		name: "age",
+		Name: "age",
 	}
 	fmt.Printf("p7=%#v\n", p2)
 }
@@ -215,9 +198,26 @@ func testStruct() {
 函数可以直接调用，方法必须要实例化接受者以后才可以调用
 */
 func (t *tem) adj1(newAge int) {
-	t.age = newAge
+	t.Age = newAge
 }
 
 func (t tem) adj2(newAge int) {
-	t.age = newAge
+	t.Age = newAge
+}
+
+func testDefer() {
+
+	defer func() {
+		fmt.Println("test1")
+	}()
+
+	fmt.Println("gap111")
+	defer func() {
+		fmt.Println("test2")
+	}()
+	fmt.Println("gap222")
+	defer func() {
+		fmt.Println("test3")
+	}()
+
 }
