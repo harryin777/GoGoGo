@@ -1,8 +1,9 @@
-package main
+package tests
 
 //标准输出包
 import (
 	"fmt"
+	"testing"
 )
 
 type Person struct {
@@ -11,34 +12,7 @@ type Person struct {
 	Male bool
 }
 
-func main() {
-	fmt.Println("hello world")
-
-	//定义一个多行字符串，必须用`
-	//	s1 := `这是一个多行
-	//字符串`
-	//
-	//	fmt.Println(s1)
-	//	fmt.Println(strings.Contains(s1, "这"))
-	//	//长度
-	//	fmt.Println(len(s1))
-	//	//前缀判断，HasSuffix后缀判断
-	//	fmt.Println(strings.HasPrefix(s1, "这是1"))
-	//	//字串出现的位置，以及LastIndex
-	//	fmt.Println(strings.Index(s1, "字"))
-
-	traverseStr()
-	//arrParameter := [4]string{"a", "q"}
-	//initArray(arrParameter)
-	//slicePractice()
-	//testDefer()
-	//fmt.Println(getBackValue())
-	//testMap()
-	//testStruct()
-
-}
-
-func traverseStr() {
+func Test_TraverseStr(t *testing.T) {
 	s := "abcdefg"
 	/*
 		默认循环字符串结果是rune
@@ -60,11 +34,14 @@ func traverseStr() {
 	}
 }
 
-func initArray(arr [4]string) {
+func Test_InitArray(t *testing.T) {
 	//接受参数，注意如果是字符串数组，循环出来直接就是字符串，而不是数字
-	arrP := arr
+	arrP := [4]int{
+		1,
+		5,
+	}
 	for i := 0; i < len(arrP); i++ {
-		fmt.Printf(arrP[i])
+		//fmt.Printf(string(arrP[i]))
 	}
 	fmt.Println()
 
@@ -100,7 +77,7 @@ func initArray(arr [4]string) {
 
 }
 
-func slicePractice() {
+func Test_SlicePractice(t *testing.T) {
 	array1 := [...]int{1, 2, 3, 4}
 
 	slice1 := array1[:]
@@ -122,13 +99,24 @@ func slicePractice() {
 
 	//元素为map类型的切片，注意一定在最前面有个[]
 	slice3 := make([]map[string]string, 8)
-	slice3[0]["aaa"] = "avalue"
+	slice3[0] = make(map[string]string, 2)
+	slice3[0]["key1"] = "val1"
+
+	//测试只声明key
+	for k := range slice3 {
+		fmt.Println(k)
+	}
+
+	//测试append一个slice给另一个slice
+	slice4 := []int{7, 77, 777}
+	slice4 = append(slice4, slice1...)
+
 }
 
 /**
 make(map[KeyType]ValueType, [cap])
 */
-func testMap() {
+func Test_Map(t *testing.T) {
 
 	userInfo := map[string]string{
 		"username": "aaa",
@@ -159,7 +147,7 @@ type tem struct {
 	Age  int    `json:"age"`
 }
 
-func testStruct() {
+func Test_Struct(t *testing.T) {
 	name := "aaa"
 	age := 18
 	//新建结构体的语法
@@ -203,7 +191,7 @@ func (t tem) adj2(newAge int) {
 	t.Age = newAge
 }
 
-func testDefer() {
+func Test_Defer(t *testing.T) {
 
 	defer func() {
 		fmt.Println("test1")
@@ -219,3 +207,15 @@ func testDefer() {
 	}()
 
 }
+
+func Test_ReturnPointsOrAddr(t *testing.T) {
+
+}
+
+func getAddr(str string) *string {
+	return &str
+}
+
+//func getPoints(str string) string {
+//	return *str
+//}
