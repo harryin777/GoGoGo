@@ -12,8 +12,8 @@ import (
 
 func Time() {
 	fmt.Println("time ===============:")
-
-	const base_format = "2006-01-02T15:04:05.000Z07:00"
+	//2006-01-02 15:04:05 时间必须是这个
+	const base_format = "2006-01-02"
 	//获取当前时间
 	nt := time.Now()
 	fmt.Printf("now datetime:%v\n", nt)
@@ -54,4 +54,10 @@ func Time() {
 	datetime_str_to_timestamp := t.Unix()
 	println("datetime_str_to_timestamp:", datetime_str_to_timestamp)
 
+}
+
+func DateTOStr(currentTime time.Time) string {
+	const dateFmt = "2006-01-02"
+	str_time := currentTime.Format(dateFmt)
+	return str_time
 }

@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"test1/Utils"
 	"testing"
+	"time"
 )
 
 const (
@@ -22,4 +23,14 @@ func TestTime(t *testing.T) {
 
 	page := "1"
 	fmt.Println(fmt.Sprintf(AlbumListKeyByPageKey, page))
+}
+
+func Test_DateTOStr(t *testing.T) {
+	fmt.Println(Utils.DateTOStr(time.Now()))
+}
+
+func Test_GetTimeArr(t *testing.T) {
+	dateStr1 := "2021-05-19"
+	dateStr2 := "2021-05-18"
+	fmt.Println(Utils.GetInterval(dateStr2, dateStr1))
 }

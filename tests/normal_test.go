@@ -2,6 +2,8 @@ package tests
 
 //标准输出包
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"testing"
 )
@@ -12,6 +14,11 @@ type Person struct {
 	Male bool
 }
 
+/**
+ * @Description 测试遍历字符串
+ * @Param
+ * @return
+ **/
 func Test_TraverseStr(t *testing.T) {
 	s := "abcdefg"
 	/*
@@ -34,6 +41,11 @@ func Test_TraverseStr(t *testing.T) {
 	}
 }
 
+/**
+ * @Description 测试数组
+ * @Param
+ * @return
+ **/
 func Test_InitArray(t *testing.T) {
 	//接受参数，注意如果是字符串数组，循环出来直接就是字符串，而不是数字
 	arrP := [4]int{
@@ -77,6 +89,11 @@ func Test_InitArray(t *testing.T) {
 
 }
 
+/**
+ * @Description 测试slice
+ * @Param
+ * @return
+ **/
 func Test_SlicePractice(t *testing.T) {
 	array1 := [...]int{1, 2, 3, 4}
 
@@ -114,8 +131,10 @@ func Test_SlicePractice(t *testing.T) {
 }
 
 /**
-make(map[KeyType]ValueType, [cap])
-*/
+ * @Description make(map[KeyType]ValueType, [cap])
+ * @Param
+ * @return
+ **/
 func Test_Map(t *testing.T) {
 
 	userInfo := map[string]string{
@@ -191,6 +210,11 @@ func (t tem) adj2(newAge int) {
 	t.Age = newAge
 }
 
+/**
+ * @Description 测试defer
+ * @Param
+ * @return
+ **/
 func Test_Defer(t *testing.T) {
 
 	defer func() {
@@ -208,14 +232,41 @@ func Test_Defer(t *testing.T) {
 
 }
 
-func Test_ReturnPointsOrAddr(t *testing.T) {
+/**
+ * @Description 序列化测试，唯一的就是golang可以把字节数组转换成json格式的字符串，java并不行
+ * @Param
+ * @return
+ **/
+func Test_Str2JSON(t *testing.T) {
+	str := "[\n\t2,\n\t3\n]"
+	_ = str
+	data := []int{2, 3}
+	var result []int
+	//strBytes 是一个字节数组
+	strBytes, _ := json.Marshal(data)
+	println(strBytes)
+	//这里输出的把字节数组转换成了一个str
+	println(string(strBytes))
+	json.Unmarshal([]byte(strBytes), &result)
+	for _, v := range result {
+		println(v)
+	}
 
+	//strBytes2, _ := json.Marshal(str)
+	//println(string(strBytes2))
 }
 
-func getAddr(str string) *string {
-	return &str
-}
+/**
+ * @Description  测试高效字符串拼接
+ * @Param
+ * @return
+ **/
+func Test_BiteBuffer(t *testing.T) {
+	var b bytes.Buffer
 
-//func getPoints(str string) string {
-//	return *str
-//}
+	for i := 0; i < 1000; i++ {
+		b.WriteString("123")
+	}
+
+	fmt.Println(b.String())
+}
