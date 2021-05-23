@@ -194,6 +194,19 @@ func Test_Struct(t *testing.T) {
 		Name: "age",
 	}
 	fmt.Printf("p7=%#v\n", p2)
+
+	//结构体数组
+	tmpArray := []tem{
+		{
+			Name: "1",
+			Age:  1,
+		},
+		{
+			Name: "2",
+			Age:  2,
+		},
+	}
+	_ = tmpArray
 }
 
 /**
