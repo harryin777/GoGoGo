@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"testing"
+	"unsafe"
 )
 
 type Person struct {
@@ -247,6 +248,7 @@ func Test_Defer(t *testing.T) {
 
 /**
  * @Description 序列化测试，唯一的就是golang可以把字节数组转换成json格式的字符串，java并不行
+				因为golang的字符串是有字节组成的，并不像传统的字符串是由字符组成的
  * @Param
  * @return
  **/
@@ -282,4 +284,17 @@ func Test_BiteBuffer(t *testing.T) {
 	}
 
 	fmt.Println(b.String())
+}
+
+/**
+* @Description: 测试int类型
+* @Param:
+* @return:
+**/
+func Test_Int(t *testing.T) {
+	//字符是放在int里，当然也可以是byte范围0-255
+	var a int = '世'
+	fmt.Println(fmt.Sprintf("原字符：%c, 对应码值：%d", a, a))
+	fmt.Println("a 占用的空间 = ", unsafe.Sizeof(a), "字节")
+
 }
