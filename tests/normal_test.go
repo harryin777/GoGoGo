@@ -283,3 +283,15 @@ func Test_BiteBuffer(t *testing.T) {
 
 	fmt.Println(b.String())
 }
+
+/**
+ * @Description 判断结构体是否为空
+ * @Param
+ * @return
+ **/
+func Test_StructIsEmptyOrNot(t *testing.T) {
+	var temp tem
+	if (temp == tem{}) {
+		fmt.Println("为空")
+	}
+}
