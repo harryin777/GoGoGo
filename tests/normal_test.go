@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"strconv"
 	"testing"
 	"unsafe"
 )
@@ -320,4 +321,22 @@ func Test_EmptySlice(t *testing.T) {
 	var slice []int = make([]int, 0)
 	slice1 := slice[0:1]
 	fmt.Println(slice1)
+}
+
+func Test_test(t *testing.T) {
+	/**
+	var n1 int32 = 12
+	var n2 int64
+	var n3 int8
+	这里是编译不通过的，因为 n1 +32 还是一个int32 golang必须显示类型转换，不同于java会自动转换类型
+	n2 = n1 + 32
+	n3 = n1 +2
+	*/
+	var a int32 = 12
+	str := fmt.Sprintf("%d", a)
+	fmt.Println(str)
+
+	//prec是保留小数位，fmt是一种格式
+	str2 := strconv.FormatFloat(float64(a), 'f', 10, 64)
+	fmt.Println(str2)
 }
