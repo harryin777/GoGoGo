@@ -310,3 +310,14 @@ func Test_StructIsEmptyOrNot(t *testing.T) {
 		fmt.Println("为空")
 	}
 }
+
+/**
+ * @Description 测试空slice可不可以分割
+ * @Param
+ * @return
+ **/
+func Test_EmptySlice(t *testing.T) {
+	var slice []int = make([]int, 0)
+	slice1 := slice[0:1]
+	fmt.Println(slice1)
+}
