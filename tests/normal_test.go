@@ -340,3 +340,20 @@ func Test_test(t *testing.T) {
 	str2 := strconv.FormatFloat(float64(a), 'f', 10, 64)
 	fmt.Println(str2)
 }
+
+/**
+* @Description: 匿名函数，可以用在函数体内部，函数体内部不能声明带有名字的函数，匿名函数是一种解决方案
+* @Param:
+* @return:
+**/
+var f1 = func(x, y int) {
+	fmt.Printf("anonymous func p1:%d, p2:%d \n", x, y)
+}
+
+func Test_AnonymousFunc(t *testing.T) {
+	f1(1, 2)
+	//只执行一次的函数
+	func() {
+		fmt.Println("立即执行的函数！")
+	}()
+}
