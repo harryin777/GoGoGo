@@ -334,7 +334,7 @@ func Test_test(t *testing.T) {
 	*/
 	var a int32 = 12
 	str := fmt.Sprintf("%d", a)
-	fmt.Println(str)
+	fmt.Printf("type is %T \n", str)
 
 	//prec是保留小数位，fmt是一种格式
 	str2 := strconv.FormatFloat(float64(a), 'f', 10, 64)
