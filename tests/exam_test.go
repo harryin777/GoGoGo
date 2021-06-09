@@ -9,6 +9,7 @@ package tests
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 /**
@@ -43,7 +44,7 @@ func Test_Exam2(t *testing.T) {
 }
 
 /**
-* @Description: defer 和 return的问题
+* @Description: defer 和 return的问题，命名返回值和非命名返回值
 * @Param:
 * @return:
 **/
@@ -59,4 +60,30 @@ func hello(i *int) int {
 		*i = 19
 	}()
 	return *i
+}
+
+/**
+* @Description: 主协程退出，子协程就会停止执行
+* @Param:
+* @return:
+**/
+func Test_Exam4(t *testing.T) {
+	// 合起来写
+	go func() {
+		i := 0
+		for {
+			i++
+			fmt.Printf("new goroutine: i = %d\n", i)
+			time.Sleep(time.Second)
+		}
+	}()
+	i := 0
+	for {
+		i++
+		fmt.Printf("main goroutine: i = %d\n", i)
+		time.Sleep(time.Second)
+		if i == 2 {
+			break
+		}
+	}
 }
