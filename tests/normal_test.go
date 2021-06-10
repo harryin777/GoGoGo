@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"strconv"
 	"testing"
 	"unsafe"
@@ -356,4 +357,16 @@ func Test_AnonymousFunc(t *testing.T) {
 	func() {
 		fmt.Println("立即执行的函数！")
 	}()
+}
+
+/**
+ * @Description 正则的使用
+ * @Param
+ * @return
+ **/
+func Test_Regex(t *testing.T) {
+	//判断一个字符串是否为纯数字，小数不行
+	//[0-9]* 这个也行
+	matched, err := regexp.Match("^[-+]?[\\d]*$", []byte("-10.00"))
+	fmt.Println(matched, err) //true nil
 }
