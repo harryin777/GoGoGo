@@ -104,6 +104,7 @@ func Test_GoroutinePool(t *testing.T) {
 	}(resultChan)
 	var id int
 	// 循环创建job，输入到管道
+	// TODO 主程执行完了为什么协程还可以打印
 	for i := 0; i < 2; i++ {
 		id++
 		// 生成随机数
