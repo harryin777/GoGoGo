@@ -37,17 +37,23 @@ func testTimer2() {
 	}()
 }
 
+//多次循环定时器 ticker
 func timer1() {
-	timer1 := time.NewTicker(2 * time.Second)
-	select {
-	case <-timer1.C:
+	timer1 := time.NewTicker(1 * time.Second)
+	//select {
+	//case <-timer1.C:
+	//	testTimer1()
+	//}
+	for {
+		<-timer1.C
 		testTimer1()
 	}
 
 }
 
+//单次循环定时器
 func timer2() {
-	timer2 := time.NewTicker(3 * time.Second)
+	timer2 := time.NewTimer(3 * time.Second)
 
 	select {
 	case <-timer2.C:

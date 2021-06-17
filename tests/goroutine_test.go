@@ -10,7 +10,9 @@ import (
 	"fmt"
 	"math/rand"
 	"runtime"
+	"sync"
 	"testing"
+	"time"
 )
 
 /**
@@ -151,4 +153,78 @@ func createPool(num int, jobChan chan *Job, resultChan chan *Result) {
 			}
 		}(jobChan, resultChan)
 	}
+}
+
+var x1 int64
+var wg1 sync.WaitGroup
+var lock1 sync.Mutex
+
+/**
+* @Description: 互斥锁，waitGroup类比 countdownLatch
+* @Param:
+* @return:
+**/
+func Test_Lock(t *testing.T) {
+	wg1.Add(2)
+	go add()
+	go add()
+	wg1.Wait()
+	fmt.Println(x1)
+}
+
+func add() {
+	for i := 0; i < 5000; i++ {
+		lock1.Lock() // 加锁
+		x1 = x1 + 1
+		lock1.Unlock() // 解锁
+	}
+	wg1.Done()
+}
+
+var (
+	x2      int64
+	wg2     sync.WaitGroup
+	lock2   sync.Mutex
+	rwlock2 sync.RWMutex
+)
+
+/**
+* @Description: 读写锁
+* @Param:
+* @return:
+**/
+func Test_RWLock(t *testing.T) {
+	start := time.Now()
+	for i := 0; i < 10; i++ {
+		wg2.Add(1)
+		go write()
+	}
+
+	for i := 0; i < 1000; i++ {
+		wg2.Add(1)
+		go read()
+	}
+
+	wg2.Wait()
+	end := time.Now()
+	fmt.Println(end.Sub(start))
+}
+
+func write() {
+	// lock.Lock()   // 加互斥锁
+	rwlock2.Lock() // 加写锁
+	x2 = x2 + 1
+	time.Sleep(10 * time.Millisecond) // 假设读操作耗时10毫秒
+	rwlock2.Unlock()                  // 解写锁
+	// lock.Unlock()                     // 解互斥锁
+	wg2.Done()
+}
+
+func read() {
+	// lock.Lock()                  // 加互斥锁
+	rwlock2.RLock()              // 加读锁
+	time.Sleep(time.Millisecond) // 假设读操作耗时1毫秒
+	rwlock2.RUnlock()            // 解读锁
+	// lock.Unlock()                // 解互斥锁
+	wg2.Done()
 }
