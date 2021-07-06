@@ -228,3 +228,17 @@ func read() {
 	// lock.Unlock()                // 解互斥锁
 	wg2.Done()
 }
+
+func Test_SyncMap(t *testing.T) {
+	//直接声明也可以用，不需要像 map那样，一定要make
+	s1 := new(sync.Map)
+	s1.Store("k1", "v1")
+	s1.Store("k2", "v2")
+	s1.Store("k3", "v3")
+
+	//无序遍历
+	s1.Range(func(key, value interface{}) bool {
+		fmt.Printf("%v, %v \n", key, value)
+		return true
+	})
+}
