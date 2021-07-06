@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	url2 "net/url"
 	"regexp"
 	"strconv"
 	"testing"
@@ -369,4 +370,17 @@ func Test_Regex(t *testing.T) {
 	//[0-9]* 这个也行
 	matched, err := regexp.Match("^[-+]?[\\d]*$", []byte("-10.00"))
 	fmt.Println(matched, err) //true nil
+}
+
+/**
+ * @Description 转义函数
+ * @Param
+ * @return
+ **/
+func Test_urlPathUnescape(t *testing.T) {
+	url := "http://sdf\nsdf\nqweqwe"
+	//url被转义了
+	fmt.Println(url2.PathUnescape(url))
+	//url没有被转义
+	fmt.Println(url2.PathEscape(url))
 }
