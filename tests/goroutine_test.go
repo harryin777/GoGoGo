@@ -11,6 +11,7 @@ import (
 	"math/rand"
 	"runtime"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 )
@@ -230,7 +231,7 @@ func read() {
 }
 
 func Test_SyncMap(t *testing.T) {
-	//直接声明也可以用，不需要像 map那样，一定要make
+	//直接声明也可以用，不需要像 map那样一定要make
 	s1 := new(sync.Map)
 	s1.Store("k1", "v1")
 	s1.Store("k2", "v2")
@@ -241,4 +242,34 @@ func Test_SyncMap(t *testing.T) {
 		fmt.Printf("%v, %v \n", key, value)
 		return true
 	})
+}
+
+var (
+	count int32
+	wg    sync.WaitGroup
+)
+
+/**
+* @Description: atomic 包中的内容
+留意这里atomic.LoadInt32和atomic.StoreInt32两个函数，一个读取int32类型变量的值，
+一个是修改int32类型变量的值，这两个都是原子性的操作
+* @Param:
+* @return:
+**/
+func Test_Atomic(t *testing.T) {
+	wg.Add(2)
+	go incCount()
+	go incCount()
+	wg.Wait()
+	fmt.Println(count)
+}
+
+func incCount() {
+	defer wg.Done()
+	for i := 0; i < 2; i++ {
+		value := atomic.LoadInt32(&count)
+		runtime.Gosched()
+		value++
+		atomic.StoreInt32(&count, value)
+	}
 }
