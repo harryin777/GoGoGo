@@ -41,3 +41,31 @@ func Test_Select1(t *testing.T) {
 		fmt.Println("s2=", s2)
 	}
 }
+
+func Test_Ticker(t *testing.T) {
+	stopFlag := false
+	//stopChan := make(chan bool)
+	fmt.Printf("now begin : %v \n", time.Now().String())
+	go func() {
+		<-time.After(1 * time.Millisecond)
+		fmt.Printf("gogogo \n")
+		stopFlag = true
+	}()
+
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
+
+	for {
+		//select {
+		//case <- stopChan:
+		//	goto res
+		//case <- ticker.C:
+		//	fmt.Printf("now : %v \n", time.Now().String())
+		//}
+		if stopFlag {
+			break
+		}
+		fmt.Printf("now : %v \n", time.Now().String())
+	}
+	//res:
+}
