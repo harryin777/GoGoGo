@@ -71,13 +71,31 @@ func Test_InnerSliceOfStruct(t *testing.T) {
 
 	for _, val := range cmap {
 		dataVal := reflect.ValueOf(val)
+		d2 := reflect.ValueOf(val).Elem()
+		_ = d2
 		fmt.Printf("%v \n", dataVal.Field(0))
 		fmt.Printf("%v \n", dataVal.Field(1))
 		fmt.Printf("%v \n", dataVal.Field(2))
 		//如何获取结构体中结构体数组的属性值
-		dataVal2 := dataVal.Field(2)
+		//dataVal2 := dataVal.Field(2)
+		//fmt.Printf("%v \n", dataVal2)
 
-		fmt.Printf("%v \n", dataVal2)
+		v := dataVal.Elem()
+		//CanSet():判断值有没有被设置，有设置:True,没有设置：false
+		fmt.Println(v.FieldByName("Id").CanSet())
+		//修改属性值
+		v.FieldByName("Name").SetString("newName")
+		fmt.Printf("%v \n", dataVal.Field(1))
 
 	}
+
+}
+
+func Test_ReflectNormal(t *testing.T) {
+	m1 := MasterPiece{
+		Id:    1,
+		MName: "m1",
+	}
+	d1 := reflect.ValueOf(m1).Elem()
+	_ = d1
 }
