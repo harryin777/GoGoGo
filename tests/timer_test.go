@@ -61,3 +61,9 @@ func timer2() {
 	}
 
 }
+
+func Test_DateTimestamp(t *testing.T) {
+	var ts int64
+	ts = 1631271819000
+	fmt.Println(time.Unix(ts/1000, 0))
+}
