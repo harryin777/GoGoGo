@@ -5,15 +5,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/shirou/gopsutil/cpu"
-	"github.com/shirou/gopsutil/disk"
-	"github.com/shirou/gopsutil/load"
-	"github.com/shirou/gopsutil/mem"
 	url2 "net/url"
 	"regexp"
 	"strconv"
 	"testing"
-	"time"
 	"unsafe"
 )
 
@@ -391,37 +386,23 @@ func Test_urlPathUnescape(t *testing.T) {
 }
 
 /**
- * @Description 获取 cpu 信息
+ * @Description 初始化结构体数组
  * @Param
  * @return
  **/
-func GetCpuPercent() []float64 {
-	percent, _ := cpu.Percent(time.Second, false)
-	for _, val := range percent {
-		fmt.Printf("cpu used percentage %v \n", val)
+func Test_initStructArray(t *testing.T) {
+	type a1 struct {
+		Name string `json:"name"`
 	}
-	return percent
-}
 
-func GetMemPercent() float64 {
-	memInfo, _ := mem.VirtualMemory()
-	return memInfo.UsedPercent
-}
+	a1s := []a1{
+		a1{
+			"a1",
+		},
+		a1{
+			"a2",
+		},
+	}
 
-func GetDiskPercent() float64 {
-	parts, _ := disk.Partitions(true)
-	diskInfo, _ := disk.Usage(parts[0].Mountpoint)
-	return diskInfo.UsedPercent
-}
-
-func GetCpuLoad() {
-	info, _ := load.Avg()
-	fmt.Printf("cpu load avg : %v \n", info)
-}
-
-func Test_GetCpuInfo(t *testing.T) {
-	GetCpuPercent()
-	GetCpuLoad()
-	fmt.Println(GetMemPercent())
-	fmt.Println(GetDiskPercent())
+	_ = a1s
 }
