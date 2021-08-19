@@ -406,3 +406,9 @@ func Test_initStructArray(t *testing.T) {
 
 	_ = a1s
 }
+
+func Test_slice2(t *testing.T) {
+	a := []int{1, 2, 3}
+	a = append(a[:0], a[1:]...) // 删除开头1个元素
+	fmt.Println(len(a))
+}
