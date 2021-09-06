@@ -412,3 +412,15 @@ func Test_slice2(t *testing.T) {
 	a = append(a[:0], a[1:]...) // 删除开头1个元素
 	fmt.Println(len(a))
 }
+
+/**
+  @Description 合并两个 slice
+  @Param
+  @return
+ **/
+func Test_Merge2Slices(t *testing.T) {
+	a := []int{1, 2, 3}
+	b := []int{4, 6, 7}
+	a = append(a, b...) // 删除开头1个元素
+	fmt.Println(len(a))
+}

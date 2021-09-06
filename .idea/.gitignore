@@ -7,3 +7,5 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 /vcs.xml
+/GoGoGo.iml
+/workspace.xml
