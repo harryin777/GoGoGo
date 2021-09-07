@@ -5,10 +5,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	url2 "net/url"
 	"regexp"
 	"strconv"
 	"testing"
+	"time"
 	"unsafe"
 )
 
@@ -423,4 +425,17 @@ func Test_Merge2Slices(t *testing.T) {
 	b := []int{4, 6, 7}
 	a = append(a, b...) // 删除开头1个元素
 	fmt.Println(len(a))
+}
+
+/**
+  @Description rand 随机数
+  @Param
+  @return
+ **/
+func Test_Rand(t *testing.T) {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	for i := 0; i < 5; i++ {
+		fmt.Println(r.Intn(200))
+	}
+
 }
