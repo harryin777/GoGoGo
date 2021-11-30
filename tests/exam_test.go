@@ -8,6 +8,7 @@ package tests
 
 import (
 	"fmt"
+	jsoniter "github.com/json-iterator/go"
 	"testing"
 	"time"
 )
@@ -86,4 +87,30 @@ func Test_Exam4(t *testing.T) {
 			break
 		}
 	}
+}
+
+type exam51 struct {
+	Name string `json:"name"`
+	Age  int    `json:"age,omitempty"`
+}
+
+type exam52 struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+}
+
+func Test_Exam5(t *testing.T) {
+
+	e1 := exam51{
+		Name: "e5",
+		Age:  0,
+	}
+	eb1, _ := jsoniter.Marshal(e1)
+	fmt.Printf("e1:%s \n", eb1)
+
+	e2 := exam52{
+		Name: "e5",
+	}
+	eb2, _ := jsoniter.Marshal(e2)
+	fmt.Printf("e2:%s \n", eb2)
 }
