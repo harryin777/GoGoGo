@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	jsoniter "github.com/json-iterator/go"
 	"math/rand"
 	url2 "net/url"
 	"regexp"
@@ -440,4 +441,24 @@ func Test_Rand(t *testing.T) {
 		fmt.Println(r.Intn(200))
 	}
 
+}
+
+func Test_Json(t *testing.T) {
+	type A struct {
+		AA string `json:"aa"`
+		AB string `json:"ab"`
+	}
+
+	type a struct {
+		AA string `json:"aa"`
+	}
+
+	A1 := A{
+		"qq",
+		"ww",
+	}
+	b, _ := jsoniter.Marshal(A1)
+	var a1 a
+	jsoniter.Unmarshal(b, &a1)
+	fmt.Println(a1)
 }
