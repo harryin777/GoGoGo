@@ -411,7 +411,9 @@ func Test_initStructArray(t *testing.T) {
 
 func Test_slice2(t *testing.T) {
 	a := []int{1, 2, 3}
-	a = append(a[:0], a[1:]...) // 删除开头1个元素
+	//a = append(a[:0], a[1:]...) // 删除开头1个元素
+	//这是清整个 slice 的操作
+	a = a[:0]
 	fmt.Println(len(a))
 }
 
