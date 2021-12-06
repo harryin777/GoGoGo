@@ -56,6 +56,11 @@ func Test_Exam3(t *testing.T) {
 	fmt.Println(i, j)
 }
 
+/**
+ * @Description 只有不具名的返回值 defer 才不能改变,如果是具名的返回值,defer 会修改最后的结果
+ * @Param
+ * @return
+ **/
 func hello(i *int) int {
 	defer func() {
 		*i = 19
@@ -113,4 +118,17 @@ func Test_Exam5(t *testing.T) {
 	}
 	eb2, _ := jsoniter.Marshal(e2)
 	fmt.Printf("e2:%s \n", eb2)
+}
+
+func f(a ...int) {
+	fmt.Printf("%#v\n", a)
+}
+
+/**
+ * @Description 应该输出什么?
+ * @Param
+ * @return
+ **/
+func Test_Exam6(t *testing.T) {
+	f()
 }

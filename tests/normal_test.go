@@ -443,6 +443,11 @@ func Test_Rand(t *testing.T) {
 
 }
 
+/**
+ * @Description json 多传一个参数在序列化的时候,如果不用到,不会有什么影响
+ * @Param
+ * @return
+ **/
 func Test_Json(t *testing.T) {
 	type A struct {
 		AA string `json:"aa"`
