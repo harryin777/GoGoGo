@@ -50,7 +50,7 @@ func Test_Struct2map(t *testing.T) {
 	if err := mapstructure.Decode(map1, &t1); err != nil {
 		fmt.Println(err)
 	}
-	fmt.Printf("map2struct后得到的 struct 内容为:%v", t1)
+	fmt.Printf("map2struct后得到的 construct 内容为:%v", t1)
 
 }
 
