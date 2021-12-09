@@ -467,3 +467,23 @@ func Test_Json(t *testing.T) {
 	jsoniter.Unmarshal(b, &a1)
 	fmt.Println(a1)
 }
+
+/**
+ * @Description json 序列化之后,一个字符串的字节长度是多少,比原来多了还是少了
+ * @Param
+ * @return
+ **/
+func Test_Json2(t *testing.T) {
+	str := "这是一个字符串"
+	b, _ := jsoniter.Marshal(str)
+	fmt.Printf("before json : %v \n", len(str))
+	fmt.Printf("after json : %v \n", len(b))
+
+	num := "657456"
+	b2, _ := jsoniter.Marshal(num)
+	fmt.Println(num)
+	fmt.Printf("before json : %v \n", len(num))
+	fmt.Println(b2)
+	fmt.Printf("after json : %v \n", len(b2))
+
+}

@@ -7,10 +7,13 @@
 package tests
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/fatih/structs"
 	"github.com/goinggo/mapstructure"
+	"log"
+	"os"
 	"testing"
 )
 
@@ -72,4 +75,29 @@ func Test_Json2map(t *testing.T) {
 		fmt.Println(err)
 	}
 	fmt.Println(mapResult)
+}
+
+/**
+ * @Description 关于缩进的问题
+ * @Param
+ * @return
+ **/
+func Test_Indent(t *testing.T) {
+	type Road struct {
+		Name   string
+		Number int
+	}
+	roads := []Road{
+		{"Diamond Fork", 29},
+		{"Sheep Creek", 51},
+	}
+
+	b, err := json.Marshal(roads)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var out bytes.Buffer
+	json.Indent(&out, b, "=", "\t")
+	out.WriteTo(os.Stdout)
 }
