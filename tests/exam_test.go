@@ -320,12 +320,15 @@ func Test_QueryHtml(t *testing.T) {
 
 		strHtml := string(body)
 
+		//这种方式也可以获取到
+		//goquery.NewDocumentFromReader(resp.Body)
 		gq, err := goquery.NewDocumentFromReader(strings.NewReader(strHtml))
 		if err != nil {
 			panic(err)
 		}
 
 		buf := bufio.NewWriter(f)
+		// .是 class 筛选,#是 id 筛选
 		gq.Find("body").Find(".search-result").Each(func(i int, selection *goquery.Selection) {
 			word := selection.Find(".search-result__word").Text()
 			des := selection.Find(".search-result__description").Text()
