@@ -7,8 +7,19 @@
 package tests
 
 import (
+	"bufio"
+	"bytes"
+	"compress/gzip"
 	"fmt"
+	"github.com/PuerkitoBio/goquery"
 	jsoniter "github.com/json-iterator/go"
+	"io"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"strings"
+	"sync"
+	"test1/Utils"
 	"testing"
 	"time"
 )
@@ -131,4 +142,201 @@ func f(a ...int) {
  **/
 func Test_Exam6(t *testing.T) {
 	f()
+}
+
+/*
+Test_Exam7 循环打印 1-100 用两个线程
+*/
+func Test_Exam7(t *testing.T) {
+	c1 := make(chan int)
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+	go func() {
+		for i := 0; i < 10; i += 2 {
+			c1 <- 1
+			fmt.Println(i)
+		}
+		wg.Done()
+	}()
+	go func() {
+		for i := 1; i < 10; i += 2 {
+			<-c1
+			fmt.Println(i)
+		}
+		wg.Done()
+	}()
+	wg.Wait()
+	select {}
+}
+
+func Test_Exam7_1(t *testing.T) {
+	count := 0
+	var lock sync.Mutex
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+	go func() {
+		thread1 := "thread1"
+		for i := 0; count < 99; i++ {
+			lock.Lock()
+			count = count + 1
+			fmt.Printf("goroutine : %v, count : %v \n", thread1, count)
+			time.Sleep(1)
+			lock.Unlock()
+		}
+		wg.Done()
+	}()
+
+	go func() {
+		thread1 := "thread2"
+		for i := 0; count < 99; i++ {
+			lock.Lock()
+			count = count + 1
+			fmt.Printf("goroutine : %v, count : %v \n", thread1, count)
+			time.Sleep(1)
+			lock.Unlock()
+		}
+		wg.Done()
+	}()
+	wg.Wait()
+}
+
+func Test_QueryHtml(t *testing.T) {
+	//https://www.iapco.org/publications/on-line-dictionary/dictionary/?ds=visitor
+
+	words := []string{
+		"exhibitor",
+		"main exhibitor ",
+		"co-exhibitor ",
+		"represented company",
+		"international exhibitor",
+		"foreign exhibitor",
+		"national exhibitor",
+		"domestic exhibitor",
+		"exhibitor staff",
+		"exhibitor personnel",
+		"visitor",
+		"trade visitor",
+		"general public visitor",
+		"international visitor",
+		"foreign visitor",
+		"national visitor",
+		"domestic visitor",
+		"visit",
+		"hosted visitor",
+		"delegate",
+		"international delegate",
+		"foreign delegate",
+		"national delegate",
+		"domestic delegate",
+		"accompanying person",
+		"media representative",
+		"service provider",
+		"official contractor",
+		"sponsor",
+		"organizer",
+		"co-organizer",
+		"show management",
+		"attendee",
+		"total attendance",
+		"admission category",
+		"Types of events",
+		"exhibition",
+		"show",
+		"fair",
+		"trade exhibition",
+		"international exhibition",
+		"public exhibition",
+		"general exhibition",
+		"specialized exhibition",
+		"conference",
+		"convention",
+		"seminar",
+		"symposium",
+		"workshop",
+		"Physical item",
+		"booth stand",
+		"booth space/stand space",
+		"raw space",
+		"contra booth",
+		"contra stand",
+		"pavilion",
+		"gross indoor exhibition venue space",
+		"gross outdoor exhibition venue space",
+		"gross exhibition space",
+		"net exhibition space",
+		"rented exhibition space",
+		"floor plan",
+		"exhibitors' manual",
+		"exhibition directory",
+		"exhibition catalogue",
+		"convention centre",
+		"congress centre",
+		"exhibition centre",
+		"fairground",
+		"Miscellaneous",
+		"build up",
+		"tear down",
+		"break down",
+		"duration of exhibition",
+	}
+
+	f := Utils.CreateFile("./fileThing.txt")
+	for _, w := range words {
+		time.Sleep(1000)
+		request, err := http.NewRequest("GET", fmt.Sprintf("https://www.iapco.org/publications/on-line-dictionary/dictionary/?ds=%v", w), nil)
+		if err != nil {
+			log.Fatal(err)
+		}
+		client := &http.Client{}
+
+		resp, err := client.Do(request)
+		if err != nil {
+			panic(err)
+		}
+		defer func() {
+			_ = resp.Body.Close()
+		}()
+
+		var body []byte
+		_ = body
+		if resp.Header.Get("Content-Encoding") == "gzip" {
+			println("--------------------gzip")
+			res := new(bytes.Buffer)
+			gr, err := gzip.NewReader(resp.Body)
+			if err != nil {
+				panic(err)
+			}
+			_, err = io.Copy(res, gr)
+			if err != nil {
+				panic(err)
+			}
+			body = res.Bytes()
+		} else {
+			body, err = ioutil.ReadAll(resp.Body)
+			if err != nil {
+				panic(err)
+			}
+		}
+
+		strHtml := string(body)
+
+		gq, err := goquery.NewDocumentFromReader(strings.NewReader(strHtml))
+		if err != nil {
+			panic(err)
+		}
+
+		buf := bufio.NewWriter(f)
+		gq.Find("body").Find(".search-result").Each(func(i int, selection *goquery.Selection) {
+			word := selection.Find(".search-result__word").Text()
+			des := selection.Find(".search-result__description").Text()
+			_, err := buf.WriteString(fmt.Sprintf("word: %v \n", word))
+			if err != nil {
+				panic(err)
+			}
+			_, err = buf.WriteString(fmt.Sprintf("des: %v ", des))
+			if err != nil {
+				panic(err)
+			}
+		})
+	}
 }

@@ -1,0 +1,81 @@
+word: professional conference organizer; PCO; meeting planner; Destination Management Company (US); DMC 
+des: 
+Company or individual professionally engaged in organizing meetings.
+ word: conference administrator 
+des: 
+Title generally conferred upon the chief administrator of the entire event.
+ word: conference secretariat 
+des: 
+The office responsible for the administrative, clerical and secretarial affairs surrounding planning, and management of a conference (cf conference).
+ word: meeting site 
+des: 
+The building and environment area where the meeting takes place.
+ word: lecture 
+des: 
+Discourse given before an audience, especially for educational purposes.
+ word: conference 
+des: 
+Participatory meeting designed for discussion, fact-finding, problem solving and consultation. As compared with a congress, a conference is normally smaller in scale and more select in character – features which tend to facilitate the exchange of information. The term “conference” carries no special connotation as to frequency. Though not inherently limited in time, conferences are usually of limited duration with specific objectives.
+ word: brainstorming session 
+des: 
+Group session in which all participants contribute creative ideas which are not initially judged for merit.
+ word: conference call; multiple call 
+des: 
+Telephone conversation involving a number of subscribers simultaneously.
+ word: multi track conference 
+des: 
+Conference with parallel programme session when participants have the choice to follow one or the other road or to jump from one track to the other during the duration of the meeting.
+ word: foreign/national meeting 
+des: 
+Membership or meeting participation available to organizations or individual from one nation, but able to meet in another nation.
+ word: multi-national meeting 
+des: 
+International meeting with a minimum of 100 participants from at least four countries.
+ word: national meeting 
+des: 
+Meeting participation available to organizations or individuals from one nation, meeting in that nation.
+ word: world meeting 
+des: 
+Membership or meeting participation available to organizations or individuals from all nations that meet worldwide. The term most commonly applied to this definition is International.
+ word: offshore meeting 
+des: 
+Meeting event not taking place in the country of the originating body.
+ word: pre-convention meeting (US) 
+des: 
+Meeting of event organizers and hotel personnel prior to arrival of guests, at which time details of the programme are reviewed.
+ word: scientific meeting 
+des: 
+Groups whose members are involved in research or applied sciences and suppliers to those groups.
+ word: technical meeting 
+des: 
+Groups whose members and suppliers work in scientific, research or applied sciences. USA/Canada: Non-medical meetings of professional organizations.
+ word: governmental conference 
+des: 
+Technical or political meetings between governments with the aim of discussing national or international topics.
+ word: conference pack; information kit; congress kit 
+des: 
+Generally a comprehensive collection of meeting documentation within its container.
+ word: keynote address; keynote speech 
+des: 
+Fundamental or leading speech made usually at the beginning of a meeting.
+ word: congress venue; conference site 
+des: 
+Meeting site. Premises where the meeting will be held.
+ word: congress centre; convention centre; conference centre 
+des: 
+Premises built specifically for holding meetings and exhibitions.
+ word: conference-style setup; boardroom-style setup 
+des: 
+Table set up in rectangle or oval shape with chairs on both sides and at both ends.
+ word: computer-controlled stereophonic conference system 
+des: 
+Sound balance control assisted by computer.
+ word: conference interpreter 
+des: 
+Person who interprets into another language oral presentation(s) made during a meeting.
+ word: conference translator 
+des: 
+Person who translates meeting documents into other languages.
+ word: conference terminologist 
+des: 
+Person who conducts terminology work specifically in the context of meeting organiz
