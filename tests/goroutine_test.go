@@ -285,7 +285,7 @@ func Test_cacheChannel(t *testing.T) {
 	// 开N个后台打印线程
 	for i := 0; i < cap(done); i++ {
 		go func() {
-			fmt.Println("你好, 世界")
+			fmt.Println("hello world")
 			done <- 1
 		}()
 	}
@@ -294,4 +294,19 @@ func Test_cacheChannel(t *testing.T) {
 	//for i := 0; i < cap(done); i++ {
 	//	<-done
 	//}
+}
+
+//sync: negative WaitGroup counter 这个报错,就是多 done 了,导致 wg.add 的已经 done 成了负数
+func Test_wgDone(t *testing.T) {
+	var wg sync.WaitGroup
+	wg.Add(2)
+	for i := 0; i < 5; i++ {
+		count := i
+		go func() {
+			defer wg.Done()
+			fmt.Printf("lala this is : %v \n", count)
+		}()
+	}
+	wg.Wait()
+	fmt.Println("finish")
 }
