@@ -310,3 +310,17 @@ func Test_wgDone(t *testing.T) {
 	wg.Wait()
 	fmt.Println("finish")
 }
+
+func Test_WhyIsThereSoManyGorountines(t *testing.T) {
+	go func() {
+
+		var wg sync.WaitGroup
+		wg.Add(5)
+		for i := 0; i < 5; i++ {
+			go func() {
+				fmt.Printf("num : %d", i)
+			}()
+		}
+		wg.Wait()
+	}()
+}
