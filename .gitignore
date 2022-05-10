@@ -2,3 +2,6 @@
 /workspace.xml
 /.idea
 /config
+*.log
+/log
+/go.sum

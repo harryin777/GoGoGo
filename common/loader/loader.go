@@ -1,16 +1,15 @@
 package loader
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/msbranco/goconfig"
+	"os"
 	"path/filepath"
 )
 
 const (
-	RunModeEnv    = "RUN_MODE"
-	RunEnv        = "RUN_ENV"
-	ConfPathEnv   = "SERVER_CONF_PATH"
-	ServerChannel = "SERVER_CHANNEL"
-	ServerRegion  = "SERVER_REGION"
+	ConfPathEnv = "SERVER_CONF_PATH"
 )
 
 const (
@@ -19,17 +18,23 @@ const (
 	TestMode    = "test"
 )
 
-const (
-	AWSProductEnv = "aws_product_env"
-	AWSDevelopEnv = "aws_develop_env"
-)
-
 var (
 	configPath   string
 	appConfigMap map[string]*goconfig.ConfigFile
 )
 
 func init() {
+	var err error
+	var workPath string
+	workPath = os.Getenv(ConfPathEnv)
+	if len(workPath) == 0 {
+		workPath, err = os.Getwd()
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	configPath = filepath.Join(workPath, "config")
 	appConfigMap = make(map[string]*goconfig.ConfigFile)
 }
 
@@ -46,4 +51,34 @@ func LoadConfigFile(fileName string) *goconfig.ConfigFile {
 		}
 		return configFile
 	}
+}
+
+func LoadElasticSearchConfig(config interface{}, filename string) {
+	var err error
+	var decoder *json.Decoder
+
+	file := OpenFile(filename)
+	defer func() {
+		_ = file.Close()
+	}()
+
+	decoder = json.NewDecoder(file)
+	if err = decoder.Decode(config); err != nil {
+		msg := fmt.Sprintf("Decode json fail for config file at %s. Error: %v", filename, err)
+		panic(msg)
+	}
+}
+
+func OpenFile(filename string) *os.File {
+	fullPath := filepath.Join(configPath, filename)
+
+	var file *os.File
+	var err error
+
+	if file, err = os.Open(fullPath); err != nil {
+		msg := fmt.Sprintf("Can not load config at %s. Error: %v", fullPath, err)
+		panic(msg)
+	}
+
+	return file
 }
