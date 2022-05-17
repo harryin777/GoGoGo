@@ -26,7 +26,7 @@ func init() {
 }
 
 func main() {
-	FiveDayRetentionRate()
+	DaysRetentionRate()
 
 }
 
@@ -52,10 +52,14 @@ func initial() {
 	fmt.Println(exists)
 }
 
-func FiveDayRetentionRate() {
-	var retentionDays = 5
-	startDate := "2022-05-10 00:00:00"
+func DaysRetentionRate() {
+	var retentionDays = 4
+	startDate := "2022-05-12 00:00:00"
+	field := "did.keyword"
+	indexName := "oppo_api"
+
 	d1, _ := time.Parse(Utils.FullLayout, startDate)
+	d2 := d1.Add(24 * time.Hour)
 	d1Count := 0
 	uidMap := make(map[string]int)
 
@@ -65,19 +69,18 @@ func FiveDayRetentionRate() {
 		// Handle error
 		panic(err)
 	}
-	col := elastic.NewCollapseBuilder("uid.keyword")
+	col := elastic.NewCollapseBuilder(field)
 	for i := 0; i < retentionDays; i++ {
-		d2 := d1.Add(time.Hour * 24)
-		rq := elastic.NewRangeQuery("time").Gt().Lte(d2)
-		searchResult, err := client.Search("oppo_api").Query(rq).Collapse(col).Pretty(true).Size(max).Do(ctx)
+		rq := elastic.NewRangeQuery("time").Gt(d1.Format(Utils.FullLayout)).Lte(d2.Format(Utils.FullLayout))
+		searchResult, err := client.Search(indexName).Query(rq).Collapse(col).Pretty(true).Size(max).Do(ctx)
 		if err != nil {
 			panic(err)
 		}
-		for _, hit := range searchResult.Hits.Hits {
-			uids, found := hit.Fields.Strings("uid.keyword")
+		for index, hit := range searchResult.Hits.Hits {
+			uids, found := hit.Fields.Strings(field)
 			if !found {
-				fmt.Println("can`t find uid.keyword")
-				return
+				fmt.Printf("hits %v can`t find %v \n", index, field)
+				continue
 			}
 			if len(uids) != 0 {
 				if val, exists := uidMap[uids[0]]; exists {
@@ -92,7 +95,8 @@ func FiveDayRetentionRate() {
 			d1Count = len(uidMap)
 		}
 
-		d1 = d2.Add(time.Hour * 24)
+		d1 = d1.Add(time.Hour * 24)
+		d2 = d2.Add(time.Hour * 24)
 	}
 
 	finalCount := 0
@@ -102,6 +106,10 @@ func FiveDayRetentionRate() {
 		}
 	}
 
-	fmt.Printf("%v retention rate: %v \n", retentionDays, finalCount/d1Count)
+	if d1Count == 0 {
+		fmt.Println("d1Count is zero")
+	} else {
+		fmt.Printf("%v days` retention rate: %v \n", retentionDays, fmt.Sprintf("%.2f", float64(finalCount)/float64(d1Count)))
+	}
 
 }

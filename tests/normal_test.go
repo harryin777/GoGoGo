@@ -323,9 +323,13 @@ func Test_StructIsEmptyOrNot(t *testing.T) {
  * @return
  **/
 func Test_EmptySlice(t *testing.T) {
-	var slice []int = make([]int, 0)
-	slice1 := slice[0:1]
-	fmt.Println(slice1)
+	//var slice []int = make([]int, 0)
+	//slice1 := slice[0:1]
+	//fmt.Println(slice1)
+	slice2 := []string{
+		"1", "2", "3",
+	}
+	fmt.Println(slice2[0:4])
 }
 
 func Test_test(t *testing.T) {

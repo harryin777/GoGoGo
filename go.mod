@@ -17,7 +17,6 @@ require (
 	github.com/msbranco/goconfig v0.0.0-20160629072055-3189001257ce
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/temoto/robotstxt v1.1.2 // indirect
-	github.com/ysmood/got v0.29.1 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 )
