@@ -7,6 +7,10 @@ package Utils
 
 import "time"
 
+const (
+	FullLayout = "2006-01-02 15:04:05"
+)
+
 func GetInterval(start, end string) int64 {
 	timeLayout := "2006-01-02"
 	loc, _ := time.LoadLocation("Asia/Shanghai")
