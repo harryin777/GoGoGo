@@ -1,10 +1,6 @@
 package construct
 
-/**
- * @Description 构造一个复杂接口体的方法
- * @Param
- * @return
- **/
+// Car 汽车类
 type Car struct {
 	Brand    string `json:"brand"`
 	Turbo    bool   `json:"turbo"`

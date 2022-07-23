@@ -67,10 +67,12 @@ func Test_Channel(t *testing.T) {
 	//没有指定容量的就是无缓冲的channel
 	ch := make(chan int)
 	go Ch2(ch)
+	fmt.Println(2)
 	ch <- 10
 }
 
 func Ch2(c chan int) {
+	fmt.Println(1)
 	i := <-c
 	fmt.Printf("channel 获取的值 ：%v", i)
 }
@@ -83,7 +85,7 @@ type Job struct {
 }
 
 type Result struct {
-	// 这里必须传对象实例
+	// 这里必须传对象地址
 	job *Job
 	// 求和
 	sum int
@@ -108,7 +110,7 @@ func Test_GoroutinePool(t *testing.T) {
 	var id int
 	// 循环创建job，输入到管道
 	// TODO 主程执行完了为什么协程还可以打印
-	for i := 0; i < 2; i++ {
+	for i := 0; i < 5; i++ {
 		id++
 		// 生成随机数
 		r_num := rand.Int()
@@ -118,6 +120,7 @@ func Test_GoroutinePool(t *testing.T) {
 		}
 		jobChan <- job
 	}
+	time.Sleep(5000)
 }
 
 /**
