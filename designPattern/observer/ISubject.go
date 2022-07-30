@@ -1,7 +1,5 @@
 package observer
 
-import "reflect"
-
 type ISubject interface {
 	Register(observer IObserver) error
 	CancelRegister(observer IObserver) error
@@ -9,31 +7,30 @@ type ISubject interface {
 }
 
 type Subject struct {
-	RegisterChannels []chan string `json:"registerChannels"`
+	//这里不一定用slice，因为channel的比较不一定可以，使用map可以很快速做cancel
+	RegisterChannels map[string]chan string
 }
 
 func (s *Subject) Register(observer *Observer) error {
 	observer.ListenChannel = make(chan string)
-	s.RegisterChannels = append(s.RegisterChannels, observer.ListenChannel)
+	s.RegisterChannels[observer.ObserverName] = observer.ListenChannel
 	return nil
 }
 
-func (s *Subject) CancelRegister(observer Observer) error {
-	for index, val := range s.RegisterChannels {
-		if reflect.DeepEqual(val, observer.ListenChannel) {
-			s.RegisterChannels = append(s.RegisterChannels[:index], s.RegisterChannels[index+1:]...)
-		}
+func (s *Subject) CancelRegister(observer Observer) (res bool, err error) {
+	if _, open := <-observer.ListenChannel; open {
+		return false, nil
 	}
-	return nil
+
+	delete(s.RegisterChannels, observer.ObserverName)
+	return true, nil
 }
 
 func (s *Subject) Publish(msg string) error {
-	for i := 0; i < len(s.RegisterChannels); i++ {
-		//这里一定要用go协程去发布消息，因为一旦有一个channel没有被监听到，所有其他的channel都不会被监听
-		go func(i int) {
-			s.RegisterChannels[i] <- msg
-		}(i)
-
+	for _, val := range s.RegisterChannels {
+		go func() {
+			val <- msg
+		}()
 	}
 	return nil
 }

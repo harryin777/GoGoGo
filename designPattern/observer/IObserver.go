@@ -7,6 +7,7 @@ type IObserver interface {
 }
 
 type Observer struct {
+	ObserverName  string      `json:"observerName"`
 	ListenChannel chan string `json:"listenChannel"`
 }
 

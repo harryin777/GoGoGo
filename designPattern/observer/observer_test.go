@@ -10,6 +10,7 @@ import (
 func Test_Sub(t *testing.T) {
 	s1 := Subject{}
 	o1 := Observer{}
+	s1.RegisterChannels = make(map[string]chan string)
 	err := s1.Register(&o1)
 	if err != nil {
 		return
