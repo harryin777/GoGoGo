@@ -166,6 +166,11 @@ func Test_Map(t *testing.T) {
 	//初始化aaa对应的value值，长度为8
 	mapContainSlice["aaa"] = make([]string, 8)
 	fmt.Println(len(mapContainSlice["aaa"]))
+
+	userInfo2 := userInfo
+	fmt.Println(userInfo2)
+	userInfo["111"] = "111"
+	fmt.Println(userInfo)
 }
 
 type tem struct {
@@ -489,5 +494,28 @@ func Test_Json2(t *testing.T) {
 	fmt.Printf("before json : %v \n", len(num))
 	fmt.Println(b2)
 	fmt.Printf("after json : %v \n", len(b2))
+
+}
+
+//比较两个简单结构体，验证是不是值传递
+func Test_CompareSimpleStruct(t *testing.T) {
+	type a struct {
+		Name string `json:"name"`
+	}
+	a1 := a{
+		"lalala",
+	}
+	b1 := a1
+	fmt.Println(a1)
+	fmt.Println(b1)
+	a1.Name = "qqqq"
+	fmt.Println(a1)
+	fmt.Println(b1)
+	//普通的类型时值传递，负责类型，比如map和slice是指针传递
+	slice1 := []int{1, 2, 3}
+	slice2 := slice1
+	fmt.Println(slice2)
+	slice1[1] = 1
+	fmt.Println(slice2)
 
 }

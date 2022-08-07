@@ -7,7 +7,6 @@ type ISubject interface {
 }
 
 type Subject struct {
-	//这里不一定用slice，因为channel的比较不一定可以，使用map可以很快速做cancel
 	RegisterChannels map[string]chan string
 }
 
