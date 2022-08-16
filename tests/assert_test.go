@@ -2,6 +2,7 @@ package tests
 
 import (
 	"fmt"
+	"os"
 	"testing"
 )
 
@@ -36,4 +37,9 @@ func VarType(s interface{}) (err error) {
  **/
 func Test_Assert(t *testing.T) {
 	_ = VarType("oiu")
+}
+
+func Test_exist(t *testing.T) {
+	defer fmt.Println(12)
+	os.Exit(3)
 }
