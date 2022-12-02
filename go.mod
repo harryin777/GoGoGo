@@ -15,6 +15,7 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/msbranco/goconfig v0.0.0-20160629072055-3189001257ce
 	github.com/neo4j/neo4j-go-driver/v4 v4.4.4
+	github.com/stretchr/testify v1.7.1
 	github.com/temoto/robotstxt v1.1.2 // indirect
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
 	google.golang.org/appengine v1.6.7 // indirect

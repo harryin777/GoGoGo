@@ -8,7 +8,8 @@ package Utils
 import "time"
 
 const (
-	FullLayout = "2006-01-02 15:04:05"
+	FullLayout      = "2006-01-02 15:04:05"
+	SimpleLayoutYMD = "2006-01-02"
 )
 
 func GetInterval(start, end string) int64 {
