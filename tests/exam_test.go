@@ -16,6 +16,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"math"
 	"net/http"
 	"strings"
 	"sync"
@@ -353,3 +354,15 @@ func Test_QueryHtml(t *testing.T) {
 //	fmt.Println(1 % 2.0)
 //	fmt.Println(int(1) % 2.0)
 //
+
+func Test_Exam9(t *testing.T) {
+	x := math.Inf(1)
+	switch {
+	case x < 0, x > 0:
+		fmt.Println(x)
+	case x == 0:
+		fmt.Println("zero")
+	default:
+		fmt.Println("something else")
+	}
+}
