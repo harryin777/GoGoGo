@@ -101,3 +101,23 @@ func Test_Indent(t *testing.T) {
 	json.Indent(&out, b, "=", "\t")
 	out.WriteTo(os.Stdout)
 }
+
+var (
+	mapGlobal = make([]int, 0, 2)
+)
+
+func getMapGlobal() {
+	mapGlobal = append(mapGlobal, 1, 2)
+}
+
+func TestMap1(t *testing.T) {
+	//map1 := make([]int, 0, 2)
+	//getMapGlobal()
+	//fmt.Printf("%p, %p \n", map1, mapGlobal)
+	//map1 = mapGlobal
+
+	//for key, val := range mapGlobal {
+	//	map1[key] = val
+	//}
+	//fmt.Printf("%p, %p", map1, mapGlobal)
+}
