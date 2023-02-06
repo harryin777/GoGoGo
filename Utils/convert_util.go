@@ -7,7 +7,9 @@ package Utils
 
 import (
 	"fmt"
+	"reflect"
 	"time"
+	"unsafe"
 )
 
 func Time() {
@@ -60,4 +62,19 @@ func DateTOStr(currentTime time.Time) string {
 	const dateFmt = "2006-01-02"
 	str_time := currentTime.Format(dateFmt)
 	return str_time
+}
+
+// 安全性会出问题,defer + recover 都不会捕获,因为 string 底层是不可变的, byte 数组是可以对数组内元素做变更的. 只有在只读的情况下可用
+func String2Bytes(s string) []byte {
+	sh := (*reflect.StringHeader)(unsafe.Pointer(&s))
+	bh := reflect.SliceHeader{
+		Data: sh.Data,
+		Len:  sh.Len,
+		Cap:  sh.Len,
+	}
+	return *(*[]byte)(unsafe.Pointer(&bh))
+}
+
+func Bytes2String(b []byte) string {
+	return *(*string)(unsafe.Pointer(&b))
 }
