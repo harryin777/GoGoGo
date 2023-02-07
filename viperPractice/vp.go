@@ -8,12 +8,13 @@ import (
 func LoadMysqlConfig(fileName string) {
 	//v := viper.New()
 	//v.SetConfigType("json")
-	viper.AddConfigPath("/Users/yinkaiyi/Downloads")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath("/Users/yinkaiyi/personal/program/GoGoGo/viperPractice")
 	viper.SetConfigName("mysql")
 	//v.SetConfigType("json")
 	if err := viper.ReadInConfig(); err != nil {
 		panic(err)
 	}
 
-	fmt.Println(viper.Get("a"))
+	fmt.Println(viper.Get("a.b.c"))
 }
