@@ -79,6 +79,7 @@ type MasterPiece struct {
 	MName string `json:"mName"`
 }
 
+// 在 map 中修改结构体的值然后给 map 重新赋值
 func Test_InnerSliceOfStruct(t *testing.T) {
 	masterPieces := []MasterPiece{
 		{
@@ -95,13 +96,13 @@ func Test_InnerSliceOfStruct(t *testing.T) {
 		Age:         22,
 		MasterPiece: masterPieces,
 	}
-	cmap := make(map[string]interface{})
+	cmap := make(map[string]CrazyDrawer)
 	cmap["c1"] = crazyOne
 
 	for _, val := range cmap {
 		dataVal := reflect.ValueOf(val)
-		d2 := reflect.ValueOf(val).Elem()
-		_ = d2
+		//d2 := reflect.ValueOf(val).Elem()
+		//_ = d2
 		fmt.Printf("%v \n", dataVal.Field(0))
 		fmt.Printf("%v \n", dataVal.Field(1))
 		fmt.Printf("%v \n", dataVal.Field(2))
@@ -109,22 +110,26 @@ func Test_InnerSliceOfStruct(t *testing.T) {
 		//dataVal2 := dataVal.Field(2)
 		//fmt.Printf("%v \n", dataVal2)
 
-		v := dataVal.Elem()
-		//CanSet():判断值有没有被设置，有设置:True,没有设置：false
-		fmt.Println(v.FieldByName("Id").CanSet())
-		//修改属性值
-		v.FieldByName("Name").SetString("newName")
-		fmt.Printf("%v \n", dataVal.Field(1))
-
+		dataVal1 := reflect.ValueOf(&val).Elem()
+		////修改属性值
+		dataVal1.FieldByName("Name").SetString("newName")
+		cmap["c1"] = dataVal1.Interface().(CrazyDrawer)
+		fmt.Printf("%v \n", dataVal1.Field(0))
 	}
 
+	fmt.Println(cmap)
 }
 
 func Test_ReflectNormal(t *testing.T) {
-	m1 := MasterPiece{
-		Id:    1,
-		MName: "m1",
-	}
-	d1 := reflect.ValueOf(m1).Elem()
-	_ = d1
+	// 声明整型变量a并赋初值
+	var a int = 1024
+	// 获取变量a的反射值对象(a的地址)
+	valueOfA := reflect.ValueOf(&a)
+	// 取出a地址的元素(a的值)
+	valueOfA = valueOfA.Elem()
+	// 修改a的值为1
+	valueOfA.SetInt(1)
+	// 打印a的值
+	fmt.Println(valueOfA.Int())
+	fmt.Println(a)
 }

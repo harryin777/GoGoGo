@@ -32,13 +32,16 @@ func Test_Select1(t *testing.T) {
 	output2 := make(chan string)
 	// 跑2个子协程，写数据
 	go test1(output1)
-	go test2(output2)
+	//go test2(output2)
+	time.Sleep(10 * time.Second)
 	// 用select监控，注意其中一个执行以后程序就直接执行下去了，不会再去接受其他的case
 	select {
 	case s1 := <-output1:
 		fmt.Println("s1=", s1)
 	case s2 := <-output2:
 		fmt.Println("s2=", s2)
+	default:
+		fmt.Println("default")
 	}
 }
 
