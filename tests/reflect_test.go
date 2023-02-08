@@ -23,11 +23,14 @@ type Drawer struct {
 * @return:
 **/
 func Test_GetAttri(t *testing.T) {
-	testMap := make(map[string]interface{})
-	testMap["persion1"] = Drawer{
-		Name: "abc",
+	testMap := make(map[string]Drawer)
+	testDrawer := Drawer{
+		Name: "test",
 		Age:  12,
 	}
+	testMap["persion1"] = testDrawer
+
+	testStr := "strstrstr"
 
 	for _, val := range testMap {
 		dataType := reflect.TypeOf(val)
@@ -36,7 +39,33 @@ func Test_GetAttri(t *testing.T) {
 		dataVal := reflect.ValueOf(val)
 		fmt.Printf("%v \n", dataVal.Field(0))
 		fmt.Printf("%v \n", dataVal.Field(1))
+		val.Age = 15
 	}
+	fmt.Println(reflect.ValueOf(testDrawer))
+
+	fmt.Println(testMap)
+
+	fmt.Println("------------------------")
+	fmt.Println(reflect.ValueOf(&testMap).Elem())
+	fmt.Printf("type : %T \n", reflect.ValueOf(&testMap).Elem())
+	fmt.Println(reflect.ValueOf(testMap))
+	fmt.Printf("type : %T \n", reflect.ValueOf(testMap))
+	fmt.Println(reflect.Indirect(reflect.ValueOf(testMap)))
+	fmt.Printf("type : %T \n", reflect.Indirect(reflect.ValueOf(testMap)))
+	fmt.Println("------------------------")
+	fmt.Println(reflect.ValueOf(&testStr).Elem())
+	fmt.Printf("type : %T \n", reflect.ValueOf(&testStr).Elem())
+	fmt.Println(reflect.ValueOf(&testStr))
+	fmt.Printf("type : %T \n", reflect.ValueOf(&testStr))
+	fmt.Println(reflect.Indirect(reflect.ValueOf(&testStr)))
+	fmt.Printf("type : %T \n", reflect.Indirect(reflect.ValueOf(&testStr)))
+	fmt.Println("------------------------")
+	fmt.Println(reflect.ValueOf(&testDrawer).Elem())
+	fmt.Printf("type : %T \n", reflect.ValueOf(&testDrawer).Elem())
+	fmt.Println(reflect.ValueOf(&testDrawer))
+	fmt.Printf("type : %T \n", reflect.ValueOf(&testDrawer))
+	fmt.Println(reflect.Indirect(reflect.ValueOf(&testDrawer)))
+	fmt.Printf("type : %T \n", reflect.Indirect(reflect.ValueOf(&testDrawer)))
 }
 
 type CrazyDrawer struct {
