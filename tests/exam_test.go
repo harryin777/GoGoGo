@@ -395,3 +395,59 @@ func Test10(t *testing.T) {
 
 	fmt.Println(ret)
 }
+
+type People interface {
+	Show()
+}
+
+type Student struct{}
+
+func (stu *Student) Show() {
+
+}
+
+func live() People {
+	var stu *Student
+	return stu
+}
+
+// 不同的是*Student 的定义后本身没有初始化值，所以 *Student 是 nil的，但是*Student 实现了 People 接口，接口不为 nil。
+func Test11(t *testing.T) {
+	if live() == nil {
+		fmt.Println("AAAAAAA")
+	} else {
+		fmt.Println("BBBBBBB")
+	}
+}
+
+type Person1 struct {
+	age int
+}
+
+// 以下代码输出啥
+func Test12(t *testing.T) {
+	//person := Person1{28}
+	person := &Person1{28}
+
+	// 1.
+	defer fmt.Println(person.age)
+
+	// 2.
+	defer func(p *Person1) {
+		fmt.Println(p.age)
+	}(person)
+
+	// 3.
+	defer func() {
+		fmt.Println(person.age)
+	}()
+
+	person.age = 29
+}
+
+func Test13(t *testing.T) {
+	var i *int
+	//i = new(int)
+	*i = 10
+	fmt.Println(*i)
+}
