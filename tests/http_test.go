@@ -23,12 +23,15 @@ func init() {
 	}
 }
 
-/**
-* @Description: io.copy防止内容全部读取到内存造成内存溢出
-				http请求
-* @Param:
-* @return:
-**/
+/*
+*
+  - @Description: io.copy防止内容全部读取到内存造成内存溢出
+    http请求
+  - @Param:
+  - @return:
+
+*
+*/
 func Test_HttpSimple(t *testing.T) {
 	url := "http://wx.qlogo.cn/Vaz7vE1/64"
 	resp, err := http.Get(url)
@@ -41,7 +44,7 @@ func Test_HttpSimple(t *testing.T) {
 	out, err := os.Create("/tmp/icon_wx_2.png")
 	wt := bufio.NewWriter(out)
 
-	defer out.Close()
+	//defer out.Close()
 
 	n, err := io.Copy(wt, resp.Body)
 	fmt.Println("write", n)
