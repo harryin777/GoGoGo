@@ -10,6 +10,7 @@ require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/gocolly/colly/v2 v2.1.0
 	github.com/goinggo/mapstructure v0.0.0-20140717182941-194205d9b4a9
+	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/json-iterator/go v1.1.12
 	github.com/msbranco/goconfig v0.0.0-20160629072055-3189001257ce
 	github.com/neo4j/neo4j-go-driver/v4 v4.4.4
