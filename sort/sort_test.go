@@ -24,10 +24,12 @@ func TestChoseSort(t *testing.T) {
 	fmt.Printf("%#v ; %T \n", val, val)
 	fmt.Printf("%#v ; %T \n", min, min)
 	fmt.Println(SelectionSort([]int{10, 4, 3, 6, 2, 1, 0}))
+	fmt.Println(Selection2([]int{10, 4, 3, 6, 2, 1, 0}))
 }
 
 func TestInsertSort(t *testing.T) {
 	fmt.Println(InsertSort([]int{10, 4, 3, 6, 2, 1, 0}))
+	fmt.Println(Insert2([]int{10, 4, 3, 6, 2, 1, 0}))
 }
 
 func TestShellSort(t *testing.T) {
