@@ -47,14 +47,14 @@ func Selection3(nums []int) []int {
 	}
 
 	for i := 0; i < len(nums); i++ {
-		standerd := i
+		standard := i
 		for j := i; j < len(nums); j++ {
-			if nums[j] < nums[standerd] {
-				standerd = j
+			if nums[j] < nums[standard] {
+				standard = j
 			}
 		}
-		if standerd != i {
-			nums[i], nums[standerd] = nums[standerd], nums[i]
+		if standard != i {
+			nums[i], nums[standard] = nums[standard], nums[i]
 		}
 	}
 
