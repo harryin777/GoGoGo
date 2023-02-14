@@ -40,3 +40,23 @@ func Selection2(arr []int) (res []int) {
 
 	return arr
 }
+
+func Selection3(nums []int) []int {
+	if len(nums) <= 1 {
+		return nums
+	}
+
+	for i := 0; i < len(nums); i++ {
+		standerd := i
+		for j := i; j < len(nums); j++ {
+			if nums[j] < nums[standerd] {
+				standerd = j
+			}
+		}
+		if standerd != i {
+			nums[i], nums[standerd] = nums[standerd], nums[i]
+		}
+	}
+
+	return nums
+}

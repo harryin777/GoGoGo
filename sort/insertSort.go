@@ -41,3 +41,24 @@ func Insert2(arr []int) (res []int) {
 
 	return arr
 }
+
+func Insert3(nums []int) []int {
+	if len(nums) == 1 {
+		return nums
+	}
+
+	for i := 0; i < len(nums); i++ {
+		min := nums[i]
+		j := 0
+		for j = i; j > 0; j-- {
+			if nums[j-1] > min {
+				nums[j] = nums[j-1]
+			} else {
+				break
+			}
+		}
+		nums[j] = min
+	}
+
+	return nums
+}

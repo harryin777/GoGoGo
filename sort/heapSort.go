@@ -3,10 +3,10 @@ package sort
 import "fmt"
 
 /*
-	给定整数数组nums和k，
-	请返回数组中第k个最大元素，
-	请注意，你需要找的是数组排序后的第k个最大元素，
-	而不是第k个不同的元素
+给定整数数组nums和k，
+请返回数组中第k个最大元素，
+请注意，你需要找的是数组排序后的第k个最大元素，
+而不是第k个不同的元素
 */
 func swap(a, b *int) {
 	*a, *b = *b, *a
@@ -24,6 +24,18 @@ func HeapSort(nums []int) []int {
 
 	return nums
 }
+
+func HeapSort2(nums []int) []int {
+	i := len(nums)
+	for i > 1 {
+		buildHeap(nums, i)
+		swap(&nums[0], &nums[i-1])
+		i--
+	}
+
+	return nums
+}
+
 func buildHeap(nums []int, len int) {
 	// 找到最后一个节点的父节点
 	parent := len/2 - 1
@@ -33,6 +45,15 @@ func buildHeap(nums []int, len int) {
 	}
 	fmt.Println(nums[0:len])
 
+}
+
+func buildHeap2(nums []int, len int) {
+	parent := len / 2
+	for parent > 0 {
+		heapify(nums, parent, len)
+		parent--
+	}
+	fmt.Println(nums[0:len])
 }
 
 func heapify(nums []int, parent, len int) {
@@ -51,5 +72,21 @@ func heapify(nums []int, parent, len int) {
 	if parent != max {
 		swap(&nums[max], &nums[parent])
 		heapify(nums, max, len)
+	}
+}
+
+func heapify2(nums []int, parent, len int) {
+	max := parent
+	lson := parent*2 + 1
+	rson := parent*2 + 2
+	if lson < len && nums[lson] > nums[max] {
+		max = lson
+	}
+	if rson < len && nums[rson] > nums[max] {
+		max = rson
+	}
+	if parent != max {
+		swap(&nums[max], &nums[parent])
+		heapify2(nums, max, len)
 	}
 }
