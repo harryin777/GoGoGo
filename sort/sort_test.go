@@ -43,3 +43,7 @@ func TestHeapSort(t *testing.T) {
 func TestCountSort(t *testing.T) {
 	fmt.Println(CountSort([]int{10, 4, 3, 6, 2, 1, 0}))
 }
+
+func TestMultiMergeSort(t *testing.T) {
+	MultiMergeSort()
+}

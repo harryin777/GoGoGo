@@ -72,3 +72,7 @@ func Test_Ticker(t *testing.T) {
 	}
 	//res:
 }
+
+func TestSelectStuck(t *testing.T) {
+
+}
