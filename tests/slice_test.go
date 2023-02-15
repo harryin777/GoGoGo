@@ -14,20 +14,20 @@ func TestPointer(t *testing.T) {
 	// 如果原先的数组还够用,那么array 追加新的元素是不会指向新的数组,只是覆盖原来数组对应的索引
 	arrayB := arrayA[:]
 	// 扩容, 那么最后的结果 arrayA 的第一个元素就变成了 300
-	//arrayB = append(arrayB, 1)
+	arrayB = append(arrayB, 1)
 	// 所以为什么这里虽然传递的是 arrayB 的地址,但是依然会改变 arrayA 的值,因为指向的是同一个地址
 	testArrayPoint2(&arrayB) // 2.传切片
 	fmt.Printf("arrayA : %p , %v\n", &arrayA, arrayA)
 }
 
 func testArrayPoint1(x *[2]int) {
-	fmt.Printf("func Array : %p , %v\n", x, *x)
-	(*x)[1] += 100
+	fmt.Printf("func test1 Array : %p , %v\n", x, *x)
+	(*x)[0] += 100
 }
 
 func testArrayPoint2(x *[]int) {
-	fmt.Printf("func Array : %p , %v\n", x, *x)
-	(*x)[1] += 100
+	fmt.Printf("func test2 Array : %p , %v\n", x, *x)
+	(*x)[0] += 100
 }
 
 func TestInitParameter(t *testing.T) {
@@ -49,4 +49,14 @@ func TestInitParameter(t *testing.T) {
 	slice3[1] = 9
 	fmt.Println(slice1)
 
+}
+
+func TestQuation(t *testing.T) {
+	slice := make([]int, 0, 10)
+	updateSlice(slice)
+	fmt.Println(slice)
+}
+
+func updateSlice(s []int) {
+	s = append(s, 1)
 }
