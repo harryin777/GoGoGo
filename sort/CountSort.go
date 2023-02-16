@@ -33,3 +33,24 @@ func getMaxOne(arr []int) int {
 	}
 	return res
 }
+
+func CountSort2(nums []int) []int {
+	backupArr := make([]int, len(nums))
+	copy(backupArr, nums)
+	maxOne := getMaxOne(nums)
+	cumulateArr := make([]int, maxOne+1)
+
+	for n := 0; n < len(nums); n++ {
+		cumulateArr[nums[n]]++
+	}
+
+	for i := 1; i < len(cumulateArr); i++ {
+		cumulateArr[i] = cumulateArr[i] + cumulateArr[i-1]
+	}
+
+	for i := 0; i < len(backupArr); i++ {
+		nums[cumulateArr[backupArr[i]]-1] = backupArr[i]
+	}
+
+	return nums
+}

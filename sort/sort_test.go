@@ -26,11 +26,13 @@ func TestSelectionSort(t *testing.T) {
 	fmt.Println(SelectionSort([]int{10, 4, 3, 6, 2, 1, 0}))
 	fmt.Println(Selection2([]int{10, 4, 3, 6, 2, 1, 0}))
 	fmt.Println(Selection3([]int{10, 4, 3, 6, 2, 1, 0}))
+	fmt.Println(Selection4([]int{10, 4, 3, 6, 2, 1, 0}))
 }
 
 func TestInsertSort(t *testing.T) {
 	fmt.Println(InsertSort([]int{10, 4, 3, 6, 2, 1, 0}))
 	fmt.Println(Insert2([]int{10, 4, 3, 6, 2, 1, 0}))
+	fmt.Println(Insert4([]int{10, 4, 3, 6, 2, 1, 0}))
 }
 
 func TestShellSort(t *testing.T) {
@@ -43,6 +45,7 @@ func TestHeapSort(t *testing.T) {
 
 func TestCountSort(t *testing.T) {
 	fmt.Println(CountSort([]int{10, 4, 3, 6, 2, 1, 0}))
+	fmt.Println(CountSort2([]int{10, 4, 3, 6, 2, 1, 0}))
 }
 
 func TestMultiMergeSort(t *testing.T) {

@@ -60,3 +60,23 @@ func Selection3(nums []int) []int {
 
 	return nums
 }
+
+func Selection4(nums []int) []int {
+	if len(nums) <= 1 {
+		return nums
+	}
+
+	for i := 0; i < len(nums); i++ {
+		standard := i
+		for j := i; j < len(nums); j++ {
+			if nums[j] < nums[standard] {
+				standard = j
+			}
+		}
+		if standard != i {
+			nums[i], nums[standard] = nums[standard], nums[i]
+		}
+	}
+
+	return nums
+}
