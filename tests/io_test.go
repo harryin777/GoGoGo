@@ -51,3 +51,14 @@ func Test_Write(t *testing.T) {
 	w.Flush()
 	f.Close()
 }
+
+func TestReader(t *testing.T) {
+	buf := bufio.NewReader(os.Stdin)
+	for {
+		str, err := buf.ReadString('\n')
+		if err != nil {
+			break
+		}
+		fmt.Println(str)
+	}
+}

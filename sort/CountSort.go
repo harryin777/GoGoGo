@@ -54,3 +54,24 @@ func CountSort2(nums []int) []int {
 
 	return nums
 }
+
+func CountSort3(nums []int) []int {
+	initArr := make([]int, len(nums))
+	copy(initArr, nums)
+	maxVal := getMaxOne(initArr)
+	countArr := make([]int, maxVal+1)
+
+	for i := 0; i < len(initArr); i++ {
+		countArr[initArr[i]]++
+	}
+
+	for i := 1; i < len(countArr); i++ {
+		countArr[i] = countArr[i] + countArr[i-1]
+	}
+
+	for i := 0; i < len(initArr); i++ {
+		nums[countArr[initArr[i]]-1] = initArr[i]
+	}
+
+	return nums
+}

@@ -451,3 +451,26 @@ func Test13(t *testing.T) {
 	*i = 10
 	fmt.Println(*i)
 }
+
+type People1 interface {
+	Speak(string) string
+}
+
+type Student1 struct{}
+
+// 注意这里，是指针类型，如果想编译成功，需要去掉*
+func (stu *Student1) Speak(think string) (talk string) {
+	if think == "bitch" {
+		talk = "You are a good boy"
+	} else {
+		talk = "hi"
+	}
+	return
+}
+
+func TestExam14(t *testing.T) {
+	// 如果是 Student1{} 编译失败，如果是&Student1{} 可以正常编译
+	var peo People1 = &Student1{}
+	think := "bitch"
+	fmt.Println(peo.Speak(think))
+}

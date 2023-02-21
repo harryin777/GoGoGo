@@ -80,3 +80,19 @@ func Selection4(nums []int) []int {
 
 	return nums
 }
+
+func SelectionSort5(nums []int) []int {
+	for i := 0; i < len(nums); i++ {
+		standard := i
+		for j := i; j < len(nums); j++ {
+			if nums[j] < nums[standard] {
+				standard = j
+			}
+		}
+		if standard != i {
+			nums[standard], nums[i] = nums[i], nums[standard]
+		}
+	}
+
+	return nums
+}

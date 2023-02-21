@@ -67,3 +67,57 @@ func Test_DateTimestamp(t *testing.T) {
 	ts = 1631271819000
 	fmt.Println(time.Unix(ts/1000, 0))
 }
+
+//buf := bufio.NewReader(os.Stdin)
+//var data string
+//for {
+//str, err := buf.ReadString('\n')
+//if err != nil || err == io.EOF {
+//break
+//}
+//data  = strings.Trim(str, "\n")
+//}
+//arr := strings.Split(data, " ")
+//arr = arr[:len(arr)-1]
+
+func TestN1(t *testing.T) {
+	arr := []string{"268", "90", "179", "129", "204", "224"}
+	_ = arr
+	list := []int{268, 90, 179, 129, 204, 224}
+	dp := make([]int, len(list))
+	for i := 0; i < len(list); i++ {
+		dp[i] = 1
+	}
+
+	for i := 0; i < len(list); i++ {
+		for j := 0; j < i; j++ {
+			if list[i] > list[j] {
+				dp[i] = max(dp[i], dp[j]+1)
+			}
+		}
+	}
+
+	var dataa int
+	for i := 0; i < len(dp); i++ {
+		dataa = max(dataa, dp[i])
+	}
+
+	fmt.Println(dataa)
+}
+
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+
+	return y
+}
+
+func Test102Str(t *testing.T) {
+	sum := 0
+	str := "97"
+	for _, val := range str {
+		sum = sum*10 + (int(val - '0'))
+	}
+	fmt.Println(sum <= 255)
+}

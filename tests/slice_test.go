@@ -2,6 +2,7 @@ package tests
 
 import (
 	"fmt"
+	"sort"
 	"testing"
 )
 
@@ -59,4 +60,29 @@ func TestQuation(t *testing.T) {
 
 func updateSlice(s []int) {
 	s = append(s, 1)
+}
+
+func TestSortSlice(t *testing.T) {
+	slice1 := []int{1, 5, 6, 20, 4, 2}
+	sort.Slice(slice1, func(i, j int) bool {
+		return slice1[i] < slice1[j]
+	})
+
+	fmt.Println(slice1)
+}
+
+func TestShallowCopy(t *testing.T) {
+	a := []int{1, 2, 3}
+	//b := a
+	// 是浅拷贝
+	//b[0] = 0
+	//fmt.Println(a)
+	changeSlice(a)
+	fmt.Println(a)
+}
+
+// 引用传递
+func changeSlice(s []int) {
+	s[0] = 0
+
 }

@@ -108,3 +108,16 @@ func TestMapAndSlice(t *testing.T) {
 	fmt.Printf("slice2 : %v \n", slice2)
 	fmt.Printf("map2 : %v \n", map2)
 }
+
+var minVal = ^(int(^uint(0) >> 1))
+var maxVal = int(^uint(0) >> 1)
+
+func TestInitCapMap(t *testing.T) {
+	fmt.Println(maxVal)
+	fmt.Println(minVal)
+	mm := make(map[int]int, 10)
+	for key, val := range mm {
+		fmt.Println(key)
+		fmt.Println(val)
+	}
+}

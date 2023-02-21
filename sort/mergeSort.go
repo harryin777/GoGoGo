@@ -26,3 +26,30 @@ func MergeSort1(arr []int) (res []int) {
 	arrR := MergeSort1(arr[mid:])
 	return MergeSort2(arrL, arrR)
 }
+
+func Merge1(nums []int) []int {
+	if len(nums) <= 1 {
+		return nums
+	}
+	mid := len(nums) / 2
+	arrL := Merge1(nums[:mid])
+	arrR := Merge1(nums[mid:])
+	return Merge2(arrL, arrR)
+}
+
+func Merge2(l, r []int) []int {
+	i, j := 0, 0
+	res := make([]int, 0, len(l)+len(r))
+	for i < len(l) && j < len(r) {
+		if l[i] >= r[j] {
+			res = append(res, r[j])
+			j++
+		} else {
+			res = append(res, l[i])
+			i++
+		}
+	}
+	res = append(res, l[i:]...)
+	res = append(res, r[j:]...)
+	return res
+}
