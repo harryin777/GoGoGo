@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 )
@@ -16,4 +17,9 @@ func BenchmarkStringBuilder(*testing.B) {
 	for _, val := range strSlice {
 		b.WriteString(val)
 	}
+}
+
+func TestStrArr(t *testing.T) {
+	str := "123"
+	fmt.Println(string(str[1]))
 }

@@ -73,8 +73,8 @@ func buildHeap(nums []int, len int) {
 }
 
 func buildHeap2(nums []int, len int) {
-	parent := len / 2
-	for parent > 0 {
+	parent := len/2 - 1
+	for parent >= 0 {
 		heapify(nums, parent, len)
 		parent--
 	}
@@ -82,9 +82,9 @@ func buildHeap2(nums []int, len int) {
 }
 
 func buildHeap3(nums []int, len int) {
-	parent := len / 2
+	parent := len/2 - 1
 
-	for parent > 0 {
+	for parent >= 0 {
 		heapify(nums, parent, len)
 		parent--
 	}
