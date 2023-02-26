@@ -1,115 +1,114 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strconv"
+	"strings"
 )
 
 func main() {
-	a := 0
-	b := 0
-	c := 0
-	count := 0
-	sum, total := 0, 0
-	GoodsList := make([]Goods, 0, 100)
-	for {
-
-		line, _ := fmt.Scanln(&a, &b, &c)
-		if line == 0 {
-			break
+	sc := bufio.NewScanner(os.Stdin)
+	sc.Scan()
+	str := strings.Split(sc.Text(), " ")
+	money, _ := strconv.Atoi(str[0])
+	n, _ := strconv.Atoi(str[1])
+	items := make([]item, n)
+	for i := 0; i < n; i++ { //构造物品
+		sc.Scan()
+		it := strings.Split(sc.Text(), " ")
+		v, _ := strconv.Atoi(it[0])
+		p, _ := strconv.Atoi(it[1])
+		q, _ := strconv.Atoi(it[2])
+		items[i] = item{
+			v,
+			p,
+			q,
+			nil,
+			nil,
 		}
 
-		if count == 0 {
-			sum = a
-			total = b
-		} else {
-			GoodsList = append(GoodsList, Goods{
-				Price: a,
-				Z:     b,
-				P:     c,
-			})
-		}
-		count++
 	}
 
-	mainPro := 0
-	for index, goods := range GoodsList {
-		if goods.P == 0 {
-			mainPro++
+	for i := 0; i < len(items); i++ {
+		var tmp = i
+		if items[i].q == 0 {
 			continue
 		}
-
-		if GoodsList[goods.P-1].Acc1 == nil {
-			GoodsList[goods.P-1].Acc1 = &GoodsList[index]
-		} else if GoodsList[goods.P-1].Acc2 == nil {
-			GoodsList[goods.P-1].Acc2 = &GoodsList[index]
+		if items[items[i].q-1].acc1 == nil {
+			items[items[i].q-1].acc1 = &items[tmp]
+		} else if items[items[i].q-1].acc2 == nil {
+			items[items[i].q-1].acc2 = &items[tmp]
 		}
 	}
 
-	dp := make([][]int, total+1)
+	dp := make([][]int, len(items)+1)
 	for i := 0; i < len(dp); i++ {
-		dp[i] = make([]int, sum+1)
+		dp[i] = make([]int, money+1)
 	}
 
-	for i := 1; i <= total; i++ {
-		if GoodsList[i-1].P != 0 {
+	cnt := 1
+	for i := 0; i < len(items); i++ {
+		if items[i].q != 0 {
 			continue
 		}
+
 		var (
-			mainMYD    = GoodsList[i-1].Price * GoodsList[i-1].Z
-			mainPrice  = GoodsList[i-1].Price
-			mainMYD1   = mainMYD
-			mainPrice1 = mainPrice
-			mainMYD2   = mainMYD
-			mainPrice2 = mainPrice
-			mainMYD3   = mainMYD
-			mainPrice3 = mainPrice
+			mainP    = items[i].v
+			mainMYD  = items[i].p * items[i].v
+			main1P   = mainP
+			main1MYD = mainMYD
+			main2P   = mainP
+			main2MYD = mainMYD
+			main3P   = mainP
+			main3MYD = mainMYD
 		)
-		if GoodsList[i-1].Acc1 != nil {
-			mainMYD1 += GoodsList[i-1].Acc1.Price * GoodsList[i-1].Acc1.Z
-			mainPrice1 += GoodsList[i-1].Acc1.Price
+		if items[i].acc1 != nil {
+			main1P += items[i].acc1.v
+			main1MYD += items[i].acc1.p * items[i].acc1.v
 		}
-		if GoodsList[i-1].Acc2 != nil {
-			mainMYD2 += GoodsList[i-1].Acc2.Price * GoodsList[i-1].Acc2.Z
-			mainPrice2 += GoodsList[i-1].Acc2.Price
+		if items[i].acc2 != nil {
+			main2P += items[i].acc2.v
+			main2MYD += items[i].acc2.p * items[i].acc2.v
 		}
-		if GoodsList[i-1].Acc2 != nil && GoodsList[i-1].Acc1 != nil {
-			mainMYD3 += GoodsList[i-1].Acc2.Price*GoodsList[i-1].Acc2.Z + GoodsList[i-1].Acc1.Price*GoodsList[i-1].Acc1.Z
-			mainPrice3 += GoodsList[i-1].Acc2.Price + GoodsList[i-1].Acc1.Price
+		if items[i].acc2 != nil && items[i].acc1 != nil {
+			main3P += items[i].acc2.v + items[i].acc1.v
+			main3MYD += items[i].acc1.p*items[i].acc1.v + items[i].acc2.p*items[i].acc2.v
 		}
 
-		fmt.Println("gz", mainPrice, mainMYD, mainPrice1, mainMYD1, mainPrice2, mainMYD2, mainPrice3, mainMYD3)
+		for j := 1; j <= money; j++ {
+			dp[cnt][j] = dp[cnt-1][j]
+			if j >= mainP {
+				dp[cnt][j] = max(dp[cnt][j], dp[cnt-1][j-mainP]+mainMYD)
+			}
+			if j >= main1P && main1P > mainP {
+				dp[cnt][j] = max(dp[cnt][j], dp[cnt-1][j-main1P]+main1MYD)
+			}
+			if j >= main2P && main2P > mainP {
+				dp[cnt][j] = max(dp[cnt][j], dp[cnt-1][j-main2P]+main2MYD)
+			}
+			if j >= main3P && main3P > mainP {
+				dp[cnt][j] = max(dp[cnt][j], dp[cnt-1][j-main3P]+main3MYD)
+			}
 
-		for j := 1; j <= sum; j++ {
-			if j >= mainPrice {
-				dp[i][j] = max(dp[i-1][j], dp[i-1][j-mainPrice]+mainMYD)
-			}
-			if j >= mainPrice1 && mainPrice1 > mainPrice {
-				dp[i][j] = max(dp[i-1][j], dp[i-1][j-mainPrice1]+mainMYD1)
-			}
-			if j >= mainPrice2 && mainPrice2 > mainPrice {
-				dp[i][j] = max(dp[i-1][j], dp[i-1][j-mainPrice2]+mainMYD2)
-			}
-			if j >= mainPrice3 && mainPrice3 > mainPrice {
-				dp[i][j] = max(dp[i-1][j], dp[i-1][j-mainPrice3]+mainMYD3)
-			}
 		}
+		cnt++
 	}
-
-	fmt.Println(dp[total][sum])
+	fmt.Println(dp[cnt-1][money])
 }
 
-type Goods struct {
-	Price int
-	Z     int
-	P     int
-	Acc1  *Goods
-	Acc2  *Goods
+type item struct {
+	v    int
+	p    int
+	q    int
+	acc1 *item
+	acc2 *item
 }
 
-func max(x, y int) int {
-	if x > y {
-		return x
+func max(a int, b int) int {
+	if a >= b {
+		return a
 	}
-
-	return y
+	return b
 }
