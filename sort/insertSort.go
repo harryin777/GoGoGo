@@ -100,3 +100,20 @@ func Insert5(nums []int) []int {
 
 	return nums
 }
+
+func Insert6(nums []int) []int {
+	for i := 0; i < len(nums); i++ {
+		tmp := nums[i]
+		j := i
+		for j = i; j > 0; j-- {
+			if nums[j-1] > tmp {
+				nums[j] = nums[j-1]
+			} else {
+				break
+			}
+		}
+		nums[j] = tmp
+	}
+
+	return nums
+}

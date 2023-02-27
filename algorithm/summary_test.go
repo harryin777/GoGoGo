@@ -25,3 +25,7 @@ func TestNNMoveNinetyDegree(t *testing.T) {
 		{7, 8, 9},
 	}))
 }
+
+func TestSquareNums(t *testing.T) {
+	SquareNums(200)
+}

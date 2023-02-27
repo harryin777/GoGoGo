@@ -1,6 +1,9 @@
 package main
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 // Ten2N 十进制转N进制
 func Ten2N(num, N int) int {
@@ -78,4 +81,15 @@ func NNMoveNinetyDegree(mtx [][]int) [][]int {
 	}
 
 	return mtx2
+}
+
+// SquareNums n 以内的完全平方数
+func SquareNums(n int) {
+	diff := 3
+	square := 1
+	for square <= n {
+		fmt.Println(square)
+		square += diff
+		diff += 2
+	}
 }
