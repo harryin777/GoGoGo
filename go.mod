@@ -16,5 +16,4 @@ require (
 	github.com/spf13/viper v1.15.0
 	github.com/stretchr/testify v1.8.1
 	github.com/temoto/robotstxt v1.1.2 // indirect
-	golang.org/x/time v0.3.0 // indirect
 )

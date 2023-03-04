@@ -7,20 +7,10 @@
 package tests
 
 import (
-	"bufio"
-	"bytes"
-	"compress/gzip"
 	"fmt"
-	"github.com/PuerkitoBio/goquery"
 	jsoniter "github.com/json-iterator/go"
-	"io"
-	"io/ioutil"
-	"log"
 	"math"
-	"net/http"
-	"strings"
 	"sync"
-	"test1/Utils"
 	"testing"
 	"time"
 )
@@ -171,178 +161,39 @@ func Test_Exam7(t *testing.T) {
 }
 
 func Test_Exam7_1(t *testing.T) {
-	count := 0
-	var lock sync.Mutex
+	//count := 0
+	//var lock sync.Mutex
 	wg := sync.WaitGroup{}
 	wg.Add(2)
+	c := make(chan int)
 	go func() {
 		thread1 := "thread1"
-		for i := 0; count < 99; i++ {
-			lock.Lock()
-			count = count + 1
-			fmt.Printf("goroutine : %v, count : %v \n", thread1, count)
-			time.Sleep(1)
-			lock.Unlock()
+		for i := 0; i < 100; i++ {
+			//lock.Lock()
+			c <- 1
+			if i%2 == 0 {
+				fmt.Printf("goroutine : %v, count : %v \n", thread1, i)
+			}
+			//time.Sleep(1)
+			//lock.Unlock()
 		}
 		wg.Done()
 	}()
 
 	go func() {
 		thread1 := "thread2"
-		for i := 0; count < 99; i++ {
-			lock.Lock()
-			count = count + 1
-			fmt.Printf("goroutine : %v, count : %v \n", thread1, count)
-			time.Sleep(1)
-			lock.Unlock()
+		for i := 0; i < 100; i++ {
+			//lock.Lock()
+			<-c
+			if i%2 != 0 {
+				fmt.Printf("goroutine : %v, count : %v \n", thread1, i)
+			}
+			//time.Sleep(1)
+			//lock.Unlock()
 		}
 		wg.Done()
 	}()
 	wg.Wait()
-}
-
-func Test_QueryHtml(t *testing.T) {
-	//https://www.iapco.org/publications/on-line-dictionary/dictionary/?ds=visitor
-
-	words := []string{
-		"exhibitor",
-		"main exhibitor ",
-		"co-exhibitor ",
-		"represented company",
-		"international exhibitor",
-		"foreign exhibitor",
-		"national exhibitor",
-		"domestic exhibitor",
-		"exhibitor staff",
-		"exhibitor personnel",
-		"visitor",
-		"trade visitor",
-		"general public visitor",
-		"international visitor",
-		"foreign visitor",
-		"national visitor",
-		"domestic visitor",
-		"visit",
-		"hosted visitor",
-		"delegate",
-		"international delegate",
-		"foreign delegate",
-		"national delegate",
-		"domestic delegate",
-		"accompanying person",
-		"media representative",
-		"service provider",
-		"official contractor",
-		"sponsor",
-		"organizer",
-		"co-organizer",
-		"show management",
-		"attendee",
-		"total attendance",
-		"admission category",
-		"Types of events",
-		"exhibition",
-		"show",
-		"fair",
-		"trade exhibition",
-		"international exhibition",
-		"public exhibition",
-		"general exhibition",
-		"specialized exhibition",
-		"conference",
-		"convention",
-		"seminar",
-		"symposium",
-		"workshop",
-		"Physical item",
-		"booth stand",
-		"booth space/stand space",
-		"raw space",
-		"contra booth",
-		"contra stand",
-		"pavilion",
-		"gross indoor exhibition venue space",
-		"gross outdoor exhibition venue space",
-		"gross exhibition space",
-		"net exhibition space",
-		"rented exhibition space",
-		"floor plan",
-		"exhibitors' manual",
-		"exhibition directory",
-		"exhibition catalogue",
-		"convention centre",
-		"congress centre",
-		"exhibition centre",
-		"fairground",
-		"Miscellaneous",
-		"build up",
-		"tear down",
-		"break down",
-		"duration of exhibition",
-	}
-
-	f := Utils.CreateFile("./fileThing.txt")
-	for _, w := range words {
-		time.Sleep(1000)
-		request, err := http.NewRequest("GET", fmt.Sprintf("https://www.iapco.org/publications/on-line-dictionary/dictionary/?ds=%v", w), nil)
-		if err != nil {
-			log.Fatal(err)
-		}
-		client := &http.Client{}
-
-		resp, err := client.Do(request)
-		if err != nil {
-			panic(err)
-		}
-		defer func() {
-			_ = resp.Body.Close()
-		}()
-
-		var body []byte
-		_ = body
-		if resp.Header.Get("Content-Encoding") == "gzip" {
-			println("--------------------gzip")
-			res := new(bytes.Buffer)
-			gr, err := gzip.NewReader(resp.Body)
-			if err != nil {
-				panic(err)
-			}
-			_, err = io.Copy(res, gr)
-			if err != nil {
-				panic(err)
-			}
-			body = res.Bytes()
-		} else {
-			body, err = ioutil.ReadAll(resp.Body)
-			if err != nil {
-				panic(err)
-			}
-		}
-
-		strHtml := string(body)
-
-		//这种方式也可以获取到
-		//goquery.NewDocumentFromReader(resp.Body)
-		gq, err := goquery.NewDocumentFromReader(strings.NewReader(strHtml))
-		if err != nil {
-			panic(err)
-		}
-
-		buf := bufio.NewWriter(f)
-		// .是 class 筛选,#是 id 筛选
-		gq.Find("body").Find(".search-result").Each(func(i int, selection *goquery.Selection) {
-			word := selection.Find(".search-result__word").Text()
-			des := selection.Find(".search-result__description").Text()
-			_, err := buf.WriteString(fmt.Sprintf("word: %v \n", word))
-			if err != nil {
-				panic(err)
-			}
-			_, err = buf.WriteString(fmt.Sprintf("des: %v ", des))
-			if err != nil {
-				panic(err)
-			}
-		})
-	}
 }
 
 /*
@@ -365,6 +216,9 @@ func Test_Exam9(t *testing.T) {
 	default:
 		fmt.Println("something else")
 	}
+	a := int(^uint(0) >> 1)
+	fmt.Println(a)
+	fmt.Println(float64(a) > x)
 }
 
 type query func(string) string
@@ -418,6 +272,9 @@ func Test11(t *testing.T) {
 	} else {
 		fmt.Println("BBBBBBB")
 	}
+
+	// 这里是编译失败的 *Student实现了People，不是Student
+	//var peo People = Student{}
 }
 
 type Person1 struct {
@@ -473,4 +330,47 @@ func TestExam14(t *testing.T) {
 	var peo People1 = &Student1{}
 	think := "bitch"
 	fmt.Println(peo.Speak(think))
+}
+
+func TestExam15(t *testing.T) {
+	//fmt.Println(test11())
+	fmt.Println(test22())
+	fmt.Println(test3())
+	fmt.Println(test4())
+
+	return
+}
+
+func test11() (v int) {
+	defer fmt.Println(v)
+	return v
+}
+
+func test22() (v int) {
+	defer func() {
+		fmt.Println(v)
+	}()
+	return 3
+}
+
+func test3() (v int) {
+	defer fmt.Println(v)
+	v = 3
+	return 4
+}
+
+func test4() (v int) {
+	defer func(n int) {
+		fmt.Println(n)
+	}(v)
+	return 5
+}
+
+func TestExam16(t *testing.T) {
+	a := []int{1, 1, 2, 2, 3, 4, 4}
+	ans := 0
+	for i := 0; i < len(a); i++ {
+		ans = ans ^ a[i]
+	}
+	fmt.Println(ans)
 }
