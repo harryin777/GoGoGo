@@ -7,7 +7,7 @@ import (
 
 // https://dream.blog.csdn.net/article/details/129067043
 // 吃火锅
-func main() {
+func main50() {
 	var dishCount, sec int
 	fmt.Scan(&dishCount, &sec)
 	data := make([][]int, 0, dishCount)

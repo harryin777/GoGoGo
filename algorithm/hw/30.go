@@ -56,6 +56,7 @@ func cal30(in, out []int) {
 	for i := 0; i < len(grid); i++ {
 		grid[i] = 4
 	}
+	// 减三是因为最小牌是3，对应索引是0
 	for i := 0; i < len(in); i++ {
 		grid[in[i]-3]--
 	}
