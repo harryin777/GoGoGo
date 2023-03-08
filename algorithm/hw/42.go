@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 // https://dream.blog.csdn.net/article/details/129031283
@@ -12,6 +11,8 @@ func main42() {
 	fmt.Scan(&count)
 	data := make([][]int, 0, 100)
 	dul := make(map[int]int)
+	endMap := make(map[int]struct{})
+	startList := make([]int, 0, len(data))
 	for {
 		var one, two int
 		n, _ := fmt.Scan(&one, &two)
@@ -19,30 +20,37 @@ func main42() {
 			break
 		}
 		data = append(data, []int{one, two})
+		startList = append(startList, one)
 		dul[one]++
 		dul[two]++
+		endMap[two] = struct{}{}
 	}
 
-	cal42(data, len(dul))
-}
-
-func cal42(data [][]int, show int) {
-	sort.Slice(data, func(i, j int) bool {
-		return data[i][0] < data[j][0]
-	})
-	for i := 0; i < len(data); i++ {
-		if data[0][0] == data[i][1] {
-			fmt.Println("no")
-			return
+	// 找到起点，起点不能在被解锁格子的map里
+	start := -1
+	for i := 0; i < len(startList); i++ {
+		if _, e := endMap[startList[i]]; !e {
+			start = startList[i]
+			break
 		}
 	}
+	if start == -1 {
+		fmt.Println("no")
+		return
+	}
+
+	cal42(data, len(dul), start)
+}
+
+func cal42(data [][]int, show int, start int) {
 
 	queue := make([]int, 0, len(data))
-	queue = append(queue, data[0][0])
+	queue = append(queue, start)
 	for len(queue) != 0 {
 		cur := queue[0]
 		queue = queue[1:]
 		show--
+		// 找到一个以后，需要从list中剔除
 		var tmp [][]int
 		for i := 0; i < len(data); i++ {
 			if data[i][0] == cur {

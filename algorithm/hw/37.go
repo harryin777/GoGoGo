@@ -1,39 +1,36 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"sort"
 	"strconv"
-	"strings"
 )
 
 // https://dream.blog.csdn.net/article/details/129019175
 // 斗地主2
 func main37() {
-	buf := bufio.NewScanner(os.Stdin)
 	pokers := make([]int, 0, 13)
-	for buf.Scan() {
-		data := buf.Text()
-		arr := strings.Split(data, " ")
-		for i := 0; i < len(arr); i++ {
-			if arr[i] == "J" {
-				pokers = append(pokers, 11)
-				continue
-			} else if arr[i] == "Q" {
-				pokers = append(pokers, 12)
-				continue
-			} else if arr[i] == "K" {
-				pokers = append(pokers, 13)
-				continue
-			} else if arr[i] == "A" {
-				pokers = append(pokers, 14)
-				continue
-			}
-			tmp, _ := strconv.Atoi(arr[i])
-			pokers = append(pokers, tmp)
+	for {
+		var str string
+		n, _ := fmt.Scan(&str)
+		if n <= 0 {
+			break
 		}
+		if str == "J" {
+			pokers = append(pokers, 11)
+			continue
+		} else if str == "Q" {
+			pokers = append(pokers, 12)
+			continue
+		} else if str == "K" {
+			pokers = append(pokers, 13)
+			continue
+		} else if str == "A" {
+			pokers = append(pokers, 14)
+			continue
+		}
+		tmp, _ := strconv.Atoi(str)
+		pokers = append(pokers, tmp)
 	}
 	cal37(pokers)
 }
@@ -47,17 +44,15 @@ func cal37(pokers []int) {
 		if pokers[i] == 2 {
 			continue
 		}
-		pre := i
 		var j = i + 1
 		for j = i + 1; j < len(pokers); j++ {
-			if pokers[j]-pokers[pre] == 1 {
-				pre = j
-			} else {
+			if pokers[j]-pokers[j-1] != 1 {
 				break
 			}
 		}
 		if j-i >= 5 {
 			ans = append(ans, pokers[i:j])
+
 		}
 		i = j - 1
 	}
@@ -71,6 +66,6 @@ func cal37(pokers []int) {
 		for _, val := range ans[i] {
 			fmt.Printf("%v ", val)
 		}
-		fmt.Println()
+		fmt.Printf("\n")
 	}
 }

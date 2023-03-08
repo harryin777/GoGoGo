@@ -29,10 +29,6 @@ func TestCal10(t *testing.T) {
 	//}, 1, 4)
 }
 
-func TestCal14(t *testing.T) {
-	cal14()
-}
-
 func TestCal17(t *testing.T) {
 	//fmt.Println(cal17("()(())"))
 	cal17("()[(())]")
@@ -66,13 +62,6 @@ func TestCal36(t *testing.T) {
 
 func TestCal37(t *testing.T) {
 	cal37([]int{2, 9, 11, 2, 3, 4, 13, 14, 7, 9, 14, 5, 6})
-}
-
-func TestCal42(t *testing.T) {
-	cal42([][]int{
-		{1, 0},
-		{1, 2},
-	}, 3)
 }
 
 func TestBs(t *testing.T) {

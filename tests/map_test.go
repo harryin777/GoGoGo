@@ -121,3 +121,12 @@ func TestInitCapMap(t *testing.T) {
 		fmt.Println(val)
 	}
 }
+
+func TestMapArr(t *testing.T) {
+	a1 := [1]int{1}
+	a2 := [2]int{1, 1}
+	_ = a2
+	a3 := [1]int{1}
+	//fmt.Println(a1 == a2)
+	fmt.Println(a1 == a3)
+}

@@ -22,7 +22,9 @@ func main28() {
 }
 
 func cal28(command []string) {
+	// 用一个长度100的slice去当内存
 	store := make([]int, 100)
+	// 存储每次分配的长度，以首地址为标记
 	indexLenMap := make(map[int]int)
 	for i := 0; i < len(command); i++ {
 		parts := strings.Split(command[i], "=")
@@ -36,19 +38,22 @@ func cal28(command []string) {
 				if j+lenInt >= len(store) {
 					fmt.Println("error")
 					return
+				} else if lenInt == 0 {
+					fmt.Println("error")
+					return
 				}
 				flag = false
 				next := false
+				// 这一部分判断空闲的地址够不够本次申请的大小
 				for p := j; p < j+lenInt; p++ {
 					if store[p] == 1 {
+						// 不够，把已经置1的还原
 						for m := j; m < p; m++ {
 							store[m] = 0
 						}
-						for store[p] != 0 {
-							p++
-						}
 						next = true
-						j = p - 1
+						// 找到当前这块分配的内存的尾部
+						j = indexLenMap[p] - 1
 						break
 					}
 					store[p] = 1

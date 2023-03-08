@@ -6,8 +6,8 @@ import (
 )
 
 func TestTen2N(t *testing.T) {
-	fmt.Println(Ten2N(55, 16))
-	fmt.Println(Ten2N(42, 2))
+	fmt.Println(DecimalToAny(55, 32))
+	fmt.Println(N210("1n", 32))
 }
 
 func TestTen2NDecimal(t *testing.T) {
@@ -15,7 +15,7 @@ func TestTen2NDecimal(t *testing.T) {
 }
 
 func TestN210(t *testing.T) {
-	fmt.Println(N210("1A", 16))
+	fmt.Println(N210("1n", 10))
 }
 
 func TestNNMoveNinetyDegree(t *testing.T) {
@@ -28,4 +28,14 @@ func TestNNMoveNinetyDegree(t *testing.T) {
 
 func TestSquareNums(t *testing.T) {
 	SquareNums(200)
+}
+
+func TestIptoIn(t *testing.T) {
+	fmt.Println(IptoIn("100.101.1.5"))
+}
+
+func TestShuiXianHua(t *testing.T) {
+	for i := 0; i < 100000; i++ {
+
+	}
 }

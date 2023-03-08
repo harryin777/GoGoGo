@@ -25,7 +25,9 @@ func main29() {
 }
 
 func cal29(tuList []Tu, sNode, tNode int) {
+	// 存储每一个节点，如果节点可以相连也存储
 	grid := make([][]Tu, 0, len(tuList))
+	// 存储每一个链表的长度
 	pathLength := make(map[int]int)
 	for i := 0; i < len(tuList); i++ {
 		for j := 0; j < len(grid); j++ {
@@ -49,7 +51,6 @@ func cal29(tuList []Tu, sNode, tNode int) {
 			}
 			currDelay += grid[i][j].Delay
 			if grid[i][j].Target == tNode {
-
 				break
 			}
 		}

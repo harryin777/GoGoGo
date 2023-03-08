@@ -41,6 +41,8 @@ func main36() {
 
 	cal36(grid, opts, row, col)
 }
+
+// 和最大男生相连数的那个题有点类似，最内层一定是action
 func cal36(grid [][]QI, opts []int, row, column int) {
 	actions := [][]int{{1, 0}, {0, 1}, {1, 1}, {-1, -1}}
 	for i := 0; i < len(opts); i++ {
@@ -68,6 +70,7 @@ func cal36(grid [][]QI, opts []int, row, column int) {
 		for m := 0; m < row; m++ {
 			for n := 0; n < column; n++ {
 				for a := 0; a < len(actions); a++ {
+					// 注意count 先加个1
 					count := 1
 					preColor := 0
 					x, y := m, n

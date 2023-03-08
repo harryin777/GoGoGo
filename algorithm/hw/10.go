@@ -54,6 +54,9 @@ func cal10(grid [][]node, x, y int) {
 	for len(queue) != 0 {
 		ele := queue[0]
 		queue = queue[1:]
+		if ele.Visited == true {
+			continue
+		}
 		for _, val := range dirArr {
 			ele.Visited = true
 			newX, newY := ele.X+val[0], ele.Y+val[1]

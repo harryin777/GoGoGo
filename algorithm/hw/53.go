@@ -8,7 +8,7 @@ import (
 
 // https://dream.blog.csdn.net/article/details/128985909
 // 最多等和不相交连续子序列
-func main() {
+func main53() {
 	var count int
 	fmt.Scan(&count)
 	data := make([]int, 0, count)

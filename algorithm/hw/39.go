@@ -35,6 +35,7 @@ func cal39(grid [][]int) {
 		}
 
 		for i := 0; i < len(grid[currStation]); i++ {
+			// 不能回到当前站点，避免最后一步前一步之前的所有时候回到了基站，也就是不能刚走两步就回基站，如果总步数是4，只有第3步的时候可以选择回基站
 			if i == currStation || (pace != len(grid)-1 && i == 0) {
 				continue
 			}
@@ -45,16 +46,3 @@ func cal39(grid [][]int) {
 
 	fmt.Println(short)
 }
-
-//func cal39(grid [][]int) {
-//	short := int(^uint(0) >> 1)
-//	for i := 0; i < len(grid); i++ {
-//		if i == 0 {
-//			continue
-//		}
-//		cur := grid[i][0] + grid[0][i]
-//		short = min(short, cur)
-//	}
-//
-//	fmt.Println(short)
-//}
