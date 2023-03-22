@@ -41,6 +41,7 @@ func Test_GetAttri(t *testing.T) {
 		fmt.Printf("%v \n", dataVal.Field(1))
 		val.Age = 15
 	}
+	testDrawer.Age = 18
 	fmt.Println(reflect.ValueOf(testDrawer))
 
 	fmt.Println(testMap)
@@ -120,6 +121,7 @@ func Test_InnerSliceOfStruct(t *testing.T) {
 	fmt.Println(cmap)
 }
 
+// 通过反射修改变量的值
 func Test_ReflectNormal(t *testing.T) {
 	// 声明整型变量a并赋初值
 	var a int = 1024

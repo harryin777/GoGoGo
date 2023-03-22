@@ -16,6 +16,7 @@ func TestNoCache(t *testing.T) {
 
 func TestCache(t *testing.T) {
 	chan1 := make(chan int, 1)
+	//var chan1 chan int
 	fmt.Println("here 1")
 	// 有缓存的 channel 就顺利可以接受一个值
 	chan1 <- 1

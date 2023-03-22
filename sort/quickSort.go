@@ -38,10 +38,10 @@ func Quick2(nums []int, left, right int) (res []int) {
 	i, j := left, right
 	mid := nums[i]
 	for i < j {
-		for i < j && nums[j] <= mid {
+		for i < j && nums[j] >= mid {
 			j--
 		}
-		for i < j && nums[i] >= mid {
+		for i < j && nums[i] <= mid {
 			i++
 		}
 		if i < j {

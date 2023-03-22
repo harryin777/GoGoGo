@@ -374,3 +374,61 @@ func TestExam16(t *testing.T) {
 	}
 	fmt.Println(ans)
 }
+
+type People17 struct{}
+
+func (p *People17) ShowA() {
+	fmt.Println("showA")
+	p.ShowB()
+}
+func (p *People17) ShowB() {
+	fmt.Println("showB")
+}
+
+type Teacher struct {
+	People17
+}
+
+func (t *Teacher) ShowB() {
+	fmt.Println("teacher showB")
+}
+
+func Test17(t *testing.T) {
+	t1 := Teacher{}
+	t1.ShowB()
+}
+
+func Test18(t *testing.T) {
+	var a uint8 = 1
+	var b uint8 = 255
+	fmt.Println("减法：", a-b)
+	fmt.Println("加法：", a+b)
+	fmt.Println("乘法：", a*b)
+}
+
+func Test19(t *testing.T) {
+	a := ^uintptr(0)
+	b := a >> 63
+	c := 4 << b
+	d := c * 8
+	e := d - 1
+	fmt.Printf("a:%d, b:%d, c:%d, d:%d, e:%d", a, b, c, d, e)
+}
+
+func app() func(string) string {
+	t := "Hi"
+	c := func(b string) string {
+		t = t + " " + b
+		return t
+	}
+	fmt.Printf("t address : %p \n", &t)
+	return c
+}
+
+func Test20(t *testing.T) {
+	a := app()
+	b := app()
+	a("go")
+	fmt.Println(b("All"))
+	fmt.Println(a("All"))
+}
