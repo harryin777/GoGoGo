@@ -432,3 +432,21 @@ func Test20(t *testing.T) {
 	fmt.Println(b("All"))
 	fmt.Println(a("All"))
 }
+
+// 注意删除了 A 并且第一次循环map 里获取的不是 A 那么 counter 会少加一次
+func Test21(t *testing.T) {
+	var m = map[string]int{
+		"A": 21,
+		"B": 22,
+		"C": 23,
+	}
+	counter := 0
+	for k, v := range m {
+		if counter == 0 {
+			delete(m, "A")
+		}
+		counter++
+		fmt.Println(k, v)
+	}
+	fmt.Println("counter is ", counter)
+}
