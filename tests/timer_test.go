@@ -121,3 +121,11 @@ func Test102Str(t *testing.T) {
 	}
 	fmt.Println(sum <= 255)
 }
+
+func TestGetLastMonth(t *testing.T) {
+	lastMonth := time.Now().AddDate(0, -1, 0)
+	t2 := lastMonth.Format("200601")
+	month := fmt.Sprintf("%d%d", lastMonth.Year(), int(lastMonth.Month()))
+	fmt.Println(month)
+	fmt.Println(t2)
+}
