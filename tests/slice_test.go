@@ -3,6 +3,7 @@ package tests
 import (
 	"fmt"
 	"sort"
+	"test1/Utils"
 	"testing"
 )
 
@@ -127,4 +128,53 @@ func TestInitArray(t *testing.T) {
 	b := [2]int{1, 2}
 	fmt.Println(len(a))
 	fmt.Println(a == b)
+}
+
+/*
+	模拟了一个一对多的场景,A 对 B,在乱序的情况下,map 里存放了 A 的地址,后续遍历的时候,如果 A 的地址相同,则认为是同一个 A
+在这个地址追加 B,看是否可以成功,是可以的.注意的点是for 循环 val 的使用,记住 val 是一个临时地址
+*/
+func Test_addressSlice(t *testing.T) {
+	type B struct {
+		Name string
+	}
+	type A struct {
+		Id int
+		B  []B
+	}
+	s1 := make([]*A, 0, 10)
+	s2 := []A{
+		{
+			Id: 1,
+			B: []B{
+				{Name: "1"},
+			},
+		},
+		{
+			Id: 2,
+			B: []B{
+				{Name: "2"},
+			},
+		},
+		{
+			Id: 1,
+			B: []B{
+				{Name: "1"},
+			},
+		},
+	}
+	AMapInfo := make(map[int]*A)
+	for _, val := range s2 {
+		if info, ok := AMapInfo[val.Id]; ok {
+			info.B = append(info.B, val.B...)
+		} else {
+			s1 = append(s1, &A{
+				Id: val.Id,
+				B:  val.B,
+			})
+			AMapInfo[val.Id] = s1[len(s1)-1]
+		}
+	}
+
+	Utils.ReceiveStruct(s1)
 }

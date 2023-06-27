@@ -135,3 +135,34 @@ func Test_ReflectNormal(t *testing.T) {
 	fmt.Println(valueOfA.Int())
 	fmt.Println(a)
 }
+
+// 反射遍历所有属性
+func Test_Traverse(t *testing.T) {
+	// 定义一个结构体
+	p := Person{
+		Name: "Alice",
+		Age:  20,
+	}
+
+	// 获取结构体类型
+	t1 := reflect.TypeOf(p)
+
+	// 遍历结构体的所有属性
+	values := make(map[string]interface{})
+	for i := 0; i < t1.NumField(); i++ {
+		// 获取属性名
+		name := t1.Field(i).Name
+
+		// 如果属性名与给定字符串相等
+		if name == "Age" {
+			// 获取属性值
+			value := reflect.ValueOf(p).Field(i).Interface()
+
+			// 将属性值放入 map 中
+			values[name] = value
+		}
+	}
+
+	// 输出结果
+	fmt.Println(values)
+}
