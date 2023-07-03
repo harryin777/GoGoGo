@@ -35,12 +35,13 @@ func testArrayPoint2(x *[]int) {
 
 func TestInitParameter(t *testing.T) {
 	slice1 := []int{1, 2, 3, 4, 5}
+	// 注意这里已经指定了容量为 2,那么 cap = 2 - 0 = 2,如果不指定,那么 cap = 原 slice 的长度 - 0 = 5
 	slice2 := slice1[0:2:2]
 	fmt.Printf("1 slice1:%v \n", slice1)
 	fmt.Printf("2 slice2:%v \n", slice2)
-	slice2[0] = 0
 	// 这时候追加会指向一个新的数组. 因为原来的容量是2，追加需要扩容，所以slice2就指向新的数组地址
 	slice2 = append(slice2, 6)
+	slice2[0] = 0
 	fmt.Printf("3 slice1:%v \n", slice1)
 	fmt.Printf("4 slice2:%v \n", slice2)
 	slice2[1] = 9
