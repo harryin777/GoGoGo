@@ -461,3 +461,22 @@ func Test22(t *testing.T) {
 	}
 	fmt.Printf("total:%d sum %d", total, sum)
 }
+
+func f23(n int) (r int) {
+	defer func() {
+		r += n
+		//recover()
+	}()
+
+	var f func()
+
+	defer f()
+	f = func() {
+		r += 2
+	}
+	return n + 1
+}
+
+func Test23(t *testing.T) {
+	fmt.Println(f23(3))
+}
