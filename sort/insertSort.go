@@ -117,3 +117,20 @@ func Insert6(nums []int) []int {
 
 	return nums
 }
+
+func Insert7(arr []int) []int {
+	for i := 0; i < len(arr); i++ {
+		var j int
+		tmp := arr[i]
+		for j = i; j > 0; j-- {
+			if arr[j-1] > tmp {
+				arr[j] = arr[j-1]
+			} else {
+				break
+			}
+		}
+		arr[j] = tmp
+	}
+
+	return arr
+}

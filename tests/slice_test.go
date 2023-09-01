@@ -3,6 +3,7 @@ package tests
 import (
 	"fmt"
 	"sort"
+	"test1/Utils"
 	"testing"
 )
 
@@ -34,12 +35,13 @@ func testArrayPoint2(x *[]int) {
 
 func TestInitParameter(t *testing.T) {
 	slice1 := []int{1, 2, 3, 4, 5}
+	// 注意这里已经指定了容量为 2,那么 cap = 2 - 0 = 2,如果不指定,那么 cap = 原 slice 的长度 - 0 = 5
 	slice2 := slice1[0:2:2]
 	fmt.Printf("1 slice1:%v \n", slice1)
 	fmt.Printf("2 slice2:%v \n", slice2)
-	slice2[0] = 0
 	// 这时候追加会指向一个新的数组. 因为原来的容量是2，追加需要扩容，所以slice2就指向新的数组地址
 	slice2 = append(slice2, 6)
+	slice2[0] = 0
 	fmt.Printf("3 slice1:%v \n", slice1)
 	fmt.Printf("4 slice2:%v \n", slice2)
 	slice2[1] = 9
@@ -127,4 +129,53 @@ func TestInitArray(t *testing.T) {
 	b := [2]int{1, 2}
 	fmt.Println(len(a))
 	fmt.Println(a == b)
+}
+
+/*
+	模拟了一个一对多的场景,A 对 B,在乱序的情况下,map 里存放了 A 的地址,后续遍历的时候,如果 A 的地址相同,则认为是同一个 A
+在这个地址追加 B,看是否可以成功,是可以的.注意的点是for 循环 val 的使用,记住 val 是一个临时地址
+*/
+func Test_addressSlice(t *testing.T) {
+	type B struct {
+		Name string
+	}
+	type A struct {
+		Id int
+		B  []B
+	}
+	s1 := make([]*A, 0, 10)
+	s2 := []A{
+		{
+			Id: 1,
+			B: []B{
+				{Name: "1"},
+			},
+		},
+		{
+			Id: 2,
+			B: []B{
+				{Name: "2"},
+			},
+		},
+		{
+			Id: 1,
+			B: []B{
+				{Name: "1"},
+			},
+		},
+	}
+	AMapInfo := make(map[int]*A)
+	for _, val := range s2 {
+		if info, ok := AMapInfo[val.Id]; ok {
+			info.B = append(info.B, val.B...)
+		} else {
+			s1 = append(s1, &A{
+				Id: val.Id,
+				B:  val.B,
+			})
+			AMapInfo[val.Id] = s1[len(s1)-1]
+		}
+	}
+
+	Utils.ReceiveStruct(s1)
 }
