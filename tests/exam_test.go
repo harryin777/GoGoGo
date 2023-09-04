@@ -9,6 +9,7 @@ package tests
 import (
 	"fmt"
 	jsoniter "github.com/json-iterator/go"
+	"github.com/shopspring/decimal"
 	"math"
 	"sync"
 	"testing"
@@ -478,5 +479,7 @@ func f23(n int) (r int) {
 }
 
 func Test23(t *testing.T) {
-	fmt.Println(f23(3))
+	a := decimal.NewFromFloat(2)
+	b := decimal.NewFromFloat(6)
+	fmt.Println(a.Div(b).Round(2))
 }

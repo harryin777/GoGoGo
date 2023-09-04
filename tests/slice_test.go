@@ -62,7 +62,7 @@ func TestInitParameter(t *testing.T) {
 
 }
 
-func TestQuation(t *testing.T) {
+func TestQuotation(t *testing.T) {
 	slice := make([]int, 0, 10)
 	updateSlice(slice)
 	fmt.Println(slice)
