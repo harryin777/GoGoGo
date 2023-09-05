@@ -5,7 +5,7 @@ type Handler interface {
 }
 
 type HandlerOne struct {
-	Handler
+	//Handler
 }
 
 func (h *HandlerOne) Handle(score int) {
@@ -16,7 +16,7 @@ func (h *HandlerOne) Handle(score int) {
 }
 
 type HandlerTwo struct {
-	Handler
+	//Handler
 }
 
 func (h *HandlerTwo) Handle(score int) {
@@ -27,7 +27,7 @@ func (h *HandlerTwo) Handle(score int) {
 }
 
 type HandlerThree struct {
-	Handler
+	//Handler
 }
 
 func (h *HandlerThree) Handle(score int) {
@@ -37,10 +37,10 @@ func (h *HandlerThree) Handle(score int) {
 	}
 }
 
-//func main() {
-//	c := ChainHandler{}
-//	c.AddHandler(&HandlerOne{})
-//	c.AddHandler(&HandlerTwo{})
-//	c.AddHandler(&HandlerThree{})
-//	c.Handle(10)
-//}
+func main() {
+	c := ChainHandler{}
+	c.AddHandler(&HandlerOne{})
+	c.AddHandler(&HandlerTwo{})
+	c.AddHandler(&HandlerThree{})
+	c.Handle(10)
+}
