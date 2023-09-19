@@ -13,6 +13,7 @@ require (
 	github.com/goinggo/mapstructure v0.0.0-20140717182941-194205d9b4a9
 	github.com/json-iterator/go v1.1.12
 	github.com/neo4j/neo4j-go-driver/v4 v4.4.4
+	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/spf13/viper v1.15.0
 	github.com/stretchr/testify v1.8.1
 	github.com/temoto/robotstxt v1.1.2 // indirect
