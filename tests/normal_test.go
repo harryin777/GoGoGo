@@ -221,7 +221,8 @@ func Test_Struct(t *testing.T) {
 	_ = tmpArray
 }
 
-/**
+/*
+*
 这是一个方法
 函数和方法的区别在于 函数是没有接受者，也就是名称前面那个参数
 方法的调用和函数的不同在于
@@ -257,12 +258,14 @@ func Test_Defer(t *testing.T) {
 
 }
 
-/**
- * @Description 序列化测试，唯一的就是golang可以把字节数组转换成json格式的字符串，java并不行
-				因为golang的字符串是有字节组成的，并不像传统的字符串是由字符组成的
- * @Param
- * @return
- **/
+/*
+*
+  - @Description 序列化测试，唯一的就是golang可以把字节数组转换成json格式的字符串，java并不行
+    因为golang的字符串是有字节组成的，并不像传统的字符串是由字符组成的
+  - @Param
+  - @return
+    *
+*/
 func Test_Str2JSON(t *testing.T) {
 	str := "[\n\t2,\n\t3\n]"
 	_ = str
@@ -427,11 +430,14 @@ func Test_slice2(t *testing.T) {
 	fmt.Println(len(a))
 }
 
-/**
-  @Description 合并两个 slice
-  @Param
-  @return
- **/
+/*
+*
+
+	 @Description 合并两个 slice
+	 @Param
+	 @return
+	*
+*/
 func Test_Merge2Slices(t *testing.T) {
 	a := []int{1, 2, 3}
 	b := []int{4, 6, 7}
@@ -439,11 +445,14 @@ func Test_Merge2Slices(t *testing.T) {
 	fmt.Println(len(a))
 }
 
-/**
-  @Description rand 随机数
-  @Param
-  @return
- **/
+/*
+*
+
+	 @Description rand 随机数
+	 @Param
+	 @return
+	*
+*/
 func Test_Rand(t *testing.T) {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	for i := 0; i < 5; i++ {
@@ -497,7 +506,7 @@ func Test_Json2(t *testing.T) {
 
 }
 
-//比较两个简单结构体，验证是不是值传递
+// 比较两个简单结构体，验证是不是值传递
 func Test_CompareSimpleStruct(t *testing.T) {
 	type a struct {
 		Name string `json:"name"`
@@ -518,4 +527,31 @@ func Test_CompareSimpleStruct(t *testing.T) {
 	slice1[1] = 1
 	fmt.Println(slice2)
 
+}
+
+func Test_taoyi(t *testing.T) {
+	A()
+	createDemo("1")
+}
+
+func A() (res *string) {
+	var str string
+	str = "123"
+	return &str
+}
+
+func B() *string {
+	var res string
+	res = "123"
+	return &res
+}
+
+type Demo struct {
+	name string
+}
+
+func createDemo(name string) *Demo {
+	d := new(Demo) // 局部变量 d 逃逸到堆
+	d.name = name
+	return d
 }

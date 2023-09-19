@@ -6,10 +6,9 @@ require (
 	github.com/PuerkitoBio/goquery v1.8.0 // indirect
 	github.com/antchfx/htmlquery v1.2.4 // indirect
 	github.com/antchfx/xmlquery v1.3.9 // indirect
-	github.com/clbanning/mxj/v2 v2.5.7 // indirect
+	github.com/clbanning/mxj/v2 v2.5.7
 	github.com/fatih/structs v1.1.0
 	github.com/gin-gonic/gin v1.8.1
-	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/gocolly/colly/v2 v2.1.0
 	github.com/goinggo/mapstructure v0.0.0-20140717182941-194205d9b4a9
 	github.com/json-iterator/go v1.1.12
@@ -17,6 +16,4 @@ require (
 	github.com/spf13/viper v1.15.0
 	github.com/stretchr/testify v1.8.1
 	github.com/temoto/robotstxt v1.1.2 // indirect
-	gorm.io/driver/mysql v1.5.1 // indirect
-	gorm.io/gorm v1.25.1 // indirect
 )
