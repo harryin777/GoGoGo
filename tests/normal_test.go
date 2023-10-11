@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	jsoniter "github.com/json-iterator/go"
+	"math"
 	"math/rand"
 	url2 "net/url"
 	"regexp"
@@ -504,4 +505,45 @@ func Test_Json2(t *testing.T) {
 	fmt.Println(b2)
 	fmt.Printf("after json : %v \n", len(b2))
 
+}
+
+//比较两个简单结构体，验证是不是值传递
+func Test_CompareSimpleStruct(t *testing.T) {
+	//type a struct {
+	//	Name string `json:"name"`
+	//}
+	//a1 := a{
+	//	"lalala",
+	//}
+	//b1 := a1
+	//fmt.Println(a1)
+	//fmt.Println(b1)
+	//a1.Name = "qqqq"
+	//fmt.Println(a1)
+	//fmt.Println(b1)
+	////普通的类型时值传递，负责类型，比如map和slice是指针传递
+	//slice1 := []int{1, 2, 3}
+	//slice2 := slice1
+	//fmt.Println(slice2)
+	//slice1[1] = 1
+	//fmt.Println(slice2)
+	var b float32
+	b = 1.1
+	fmt.Println(int(math.Ceil(float64(b))))
+
+}
+
+type Person2 struct {
+	name  string
+	hobby string
+}
+
+func (p Person2) MarshalJSON() ([]byte, error) {
+	return []byte(`{"name":"` + p.name + `","hobby":"` + p.hobby + `"}`), nil
+}
+
+func Test_Marshal(t *testing.T) {
+	person := Person2{name: "polarisxu", hobby: "Golang"}
+	m, _ := json.Marshal(person)
+	fmt.Printf("%s", m)
 }
