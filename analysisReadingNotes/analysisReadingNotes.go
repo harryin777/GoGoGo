@@ -11,7 +11,7 @@ import (
 
 const (
 	path     = "F:\\documents\\My Clippings.txt"
-	bookName = " 孤"
+	bookName = " 孤独小说家"
 )
 
 func main() {
@@ -32,13 +32,18 @@ func main() {
 	re := regexp.MustCompile("\\r\\n\\r\\n(.*)")
 	for _, part := range contentParts {
 		if len(bookName) != 0 {
-			part2 := []rune(part)[0:2]
-			bookName2 := []rune(bookName)[0:2]
-			fmt.Println(string(part2))
-			fmt.Println(string(bookName2))
-			fmt.Println(string(part2) == bookName)
-			part = strings.Trim(part, "\n")
-			if strings.HasPrefix(part, bookName) {
+			nameList := []rune(bookName)[1:2]
+			part2 := []rune(part)[1 : len(nameList)+1]
+			var nameStr string
+			var linePrefix string
+			for _, name := range nameList {
+				nameStr = nameStr + string(name)
+			}
+			for _, val := range part2 {
+				linePrefix = linePrefix + string(val)
+			}
+
+			if nameStr == linePrefix {
 				match := re.FindStringSubmatch(part)
 				if len(match) > 1 {
 					fmt.Println(match[1])
@@ -51,5 +56,4 @@ func main() {
 			}
 		}
 	}
-	//fmt.Print(string(bytes))
 }
