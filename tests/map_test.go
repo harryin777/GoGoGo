@@ -123,10 +123,10 @@ func TestInitCapMap(t *testing.T) {
 }
 
 func TestMapArr(t *testing.T) {
-	a1 := [1]int{1}
-	a2 := [2]int{1, 1}
-	_ = a2
-	a3 := [1]int{1}
-	//fmt.Println(a1 == a2)
-	fmt.Println(a1 == a3)
+	m1 := make(map[string][]*string)
+	str := "a"
+	for i := 0; i < 10; i++ {
+		m1["a"] = append(m1["a"], &str)
+	}
+	fmt.Println(m1)
 }

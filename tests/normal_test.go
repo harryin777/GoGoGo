@@ -2,7 +2,6 @@ package tests
 
 //标准输出包
 import (
-	"encoding/json"
 	"fmt"
 	jsoniter "github.com/json-iterator/go"
 	"math"
@@ -278,9 +277,8 @@ func (p Person2) MarshalJSON() ([]byte, error) {
 }
 
 func Test_Marshal(t *testing.T) {
-	person := Person2{name: "polarisxu", hobby: "Golang"}
-	m, _ := json.Marshal(person)
-	fmt.Printf("%s", m)
+	var i interface{}
+	fmt.Println(i.(string))
 }
 
 func getPersonName(level int, p []Person) (res []string) {
