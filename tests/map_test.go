@@ -52,24 +52,25 @@ func TestRange(t *testing.T) {
 		{Name: "wang", Age: 22},
 	}
 	for _, stu := range stus {
-		// 可以看到地址一直没有变化,也就是 stu 这个变量只初始化一次,后续都是在前面的同一个地址上赋值,所以 val 不变,但是地址一直都是一样.
-		// 那么最后 map 里的值也都是一样的,因为是从同一个内存地址获取的.
+		// 可以看到地址一直没有变化,也就是 stu 这个变量只初始化一次,后续都是在前面的同一个地址上赋值,地址一直都是一样.
+		// 那么最后 map 里的值也都是一样的,因为循环结束以后 stu 这个地址最后的值是最后一次循环赋的值.
 		//fmt.Printf("%p \n", &stu)
 		// 为什么这种操作可以,这是新建了一个临时局部变量,会给这个临时变量分配新的地址,值是 stu 的值,那么 map 最后指向的是临时变量的地址对应的值
 		// tmp := stu
 		m[stu.Name] = &stu
 	}
-	//map 中存放的是地址
-	//for _, val := range m {
-	//	val.Age = 999
-	//}
+	//map 中存放的是地址, 所以这种更改是有效的
+	for _, val := range m {
+		val.Age = 999
+	}
+	fmt.Println("1......")
 	Utils.ReceiveStruct(m)
-
+	fmt.Println("1------")
 	m2 := make(map[string]student)
 	for _, stu := range stus {
 		m2[stu.Name] = stu
 	}
-	//map 中存放的是值
+	//map 中存放的是值, 所以这种更改是无效的
 	for _, val := range m2 {
 		val.Age = 999
 	}
@@ -88,8 +89,8 @@ func TestMapAndSlice(t *testing.T) {
 		map1[val] = val
 	}
 
-	fmt.Printf("slice2 : %v \n", slice1)
-	fmt.Printf("map2 : %v \n", map1)
+	fmt.Printf("slice1 : %v \n", slice1)
+	fmt.Printf("map1 : %v \n", map1)
 
 	stus := []student{
 		{Name: "zhou", Age: 24},
@@ -122,11 +123,11 @@ func TestInitCapMap(t *testing.T) {
 	}
 }
 
-func TestMapArr(t *testing.T) {
-	m1 := make(map[string][]*string)
-	str := "a"
-	for i := 0; i < 10; i++ {
-		m1["a"] = append(m1["a"], &str)
+func TestMapAppend(t *testing.T) {
+	m1 := make(map[string][]string)
+	slice := []string{"1", "2", "3", "4"}
+	for _, s := range slice {
+		m1["1"] = append(m1["1"], s)
 	}
 	fmt.Println(m1)
 }
