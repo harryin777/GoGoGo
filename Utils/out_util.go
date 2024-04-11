@@ -33,4 +33,5 @@ func ReceiveStruct(t interface{}) {
 	}
 
 	out.WriteTo(os.Stdout)
+	fmt.Println()
 }

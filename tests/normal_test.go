@@ -2,7 +2,6 @@ package tests
 
 //标准输出包
 import (
-	"encoding/json"
 	"fmt"
 	jsoniter "github.com/json-iterator/go"
 	"math"
@@ -242,7 +241,7 @@ func Test_Json2(t *testing.T) {
 
 }
 
-//比较两个简单结构体，验证是不是值传递
+// 比较两个简单结构体，验证是不是值传递
 func Test_CompareSimpleStruct(t *testing.T) {
 	//type a struct {
 	//	Name string `json:"name"`
@@ -278,9 +277,8 @@ func (p Person2) MarshalJSON() ([]byte, error) {
 }
 
 func Test_Marshal(t *testing.T) {
-	person := Person2{name: "polarisxu", hobby: "Golang"}
-	m, _ := json.Marshal(person)
-	fmt.Printf("%s", m)
+	var i interface{}
+	fmt.Println(i.(string))
 }
 
 func getPersonName(level int, p []Person) (res []string) {
@@ -290,4 +288,19 @@ func getPersonName(level int, p []Person) (res []string) {
 	res2 := getPersonName(level+1, p)
 	res = append(res, res2...)
 	return
+}
+
+func Test_hello2(t *testing.T) {
+	//T2()
+	fmt.Println(strconv.ParseFloat(fmt.Sprintf("%.4f", float64(2.55)/6.88), 64))
+}
+
+func T2() int {
+	defer TTTT("defer")
+	return TTTT("return")
+}
+
+func TTTT(str string) int {
+	fmt.Printf("hello: %v \n", str)
+	return 1
 }

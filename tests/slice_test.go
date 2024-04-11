@@ -153,6 +153,7 @@ func TestInitArray(t *testing.T) {
 
 /*
 	模拟了一个一对多的场景,A 对 B,在乱序的情况下,map 里存放了 A 的地址,后续遍历的时候,如果 A 的地址相同,则认为是同一个 A
+
 在这个地址追加 B,看是否可以成功,是可以的.注意的点是for 循环 val 的使用,记住 val 是一个临时地址
 */
 func Test_addressSlice(t *testing.T) {
@@ -199,4 +200,19 @@ func Test_addressSlice(t *testing.T) {
 	}
 
 	Utils.ReceiveStruct(s1)
+}
+
+type ex struct {
+	Id int
+}
+
+func Test_forRange(t *testing.T) {
+	var eslice []*ex
+	eslice = append(eslice, &ex{Id: 1}, &ex{Id: 2}, &ex{Id: 3})
+	for _, e := range eslice {
+		e.Id = 100
+	}
+	for _, e := range eslice {
+		fmt.Println(e.Id)
+	}
 }

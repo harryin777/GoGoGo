@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"go.uber.org/zap"
+	"time"
 )
 
 type query func(string) string
@@ -46,13 +48,24 @@ type Impl2 struct {
 }
 
 func main() {
-	i := &Impl2{
-		a: Data{num: 10},
-	}
+	//i := &Impl2{
+	//	a: Data{num: 10},
+	//}
+	//
+	//i.Value()
+	//
+	//fmt.Println(i.a.num) // 输出的是0
 
-	i.Value()
-
-	fmt.Println(i.a.num) // 输出的是0
+	logger, _ := zap.NewProduction()
+	defer logger.Sync() // flushes buffer, if any
+	sugar := logger.Sugar()
+	sugar.Infow("failed to fetch URL",
+		// Structured context as loosely typed key-value pairs.
+		"url", "testset",
+		"attempt", 3,
+		"backoff", time.Second,
+	)
+	sugar.Infof("Failed to fetch URL: %s", "testst")
 }
 
 func (i Impl2) Value() {
