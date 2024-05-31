@@ -5,13 +5,15 @@ import (
 	"math"
 )
 
-//
-//
-
+// LeftBound
 func LeftBound(nums []int, target int) int {
 	left, right := 0, len(nums)
+	if left > right {
+		return 0
+	}
 	for left < right {
 		mid := (left + right) >> 1
+		// 为什么可以找到左边界，因为在找到target的时候没有立即返回，而是缩小了搜索的右边界
 		if nums[mid] >= target {
 			right = mid
 		} else {
@@ -19,24 +21,34 @@ func LeftBound(nums []int, target int) int {
 		}
 	}
 
-	return left
+	// 判断 target 是否存在于 nums 中
+	// 如果越界，target 肯定不存在，返回 -1
+	if left < 0 || left >= len(nums) {
+		return -1
+	}
+	// 判断一下 nums[left] 是不是 target
+	if nums[left] == target {
+		return left
+	}
+	return -1
 }
 
-func RightBound(arr []int, target int) int {
-	left, right := 0, len(arr)
+func RightBound(nums []int, target int) int {
+	left, right := 0, len(nums)
 	if left > right {
 		return 0
 	}
 	for left < right {
 		mid := (left + right) >> 1
-		if arr[mid] <= target {
-			left = mid + 1
-		} else {
+		// 能够找到右边界的原因是在 mid  <= target 的情况下，缩短了左边界
+		if nums[mid] > target {
 			right = mid
+		} else {
+			left = mid + 1
 		}
 	}
 
-	return left - 1
+	return left
 }
 
 func TripleOne(target float64) {
