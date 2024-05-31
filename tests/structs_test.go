@@ -110,14 +110,23 @@ func getMapGlobal() {
 	mapGlobal = append(mapGlobal, 1, 2)
 }
 
-func TestMap1(t *testing.T) {
-	//map1 := make([]int, 0, 2)
-	//getMapGlobal()
-	//fmt.Printf("%p, %p \n", map1, mapGlobal)
-	//map1 = mapGlobal
+type outer struct {
+	i inner
+}
 
-	//for key, val := range mapGlobal {
-	//	map1[key] = val
-	//}
-	//fmt.Printf("%p, %p", map1, mapGlobal)
+type inner struct {
+}
+
+func (o *outer) say() string {
+	return "outer"
+}
+
+func (i *inner) say() string {
+	return "inner"
+}
+
+// 首先会在外层结构体实现的方法里找say,如果找不到,会在内层结构体去找
+func TestMap1(t *testing.T) {
+	o := outer{}
+	fmt.Println(o.i.say())
 }
