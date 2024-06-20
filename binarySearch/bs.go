@@ -95,25 +95,6 @@ func TripleOne(target float64) {
 	fmt.Printf("%.6f", mid)
 }
 
-func NormalBS(nums []int, target int) int {
-	left, right := 0, len(nums)-1
-	count := 0
-	for left < right {
-		count++
-		fmt.Printf("NormalBS %d \n", count)
-		mid := (left + right) >> 1
-		if nums[mid] > target {
-			right -= 1
-		} else if nums[mid] < target {
-			left += 1
-		} else {
-			return mid
-		}
-	}
-
-	return left
-}
-
 // BS 这种才是二分, 上面那个还是要遍历
 func BS(nums []int, target int) int {
 	left, right := 0, len(nums)-1
@@ -122,10 +103,10 @@ func BS(nums []int, target int) int {
 		count++
 		fmt.Printf("BS %d \n", count)
 		mid := (left + right) >> 1
-		if nums[mid] > target {
-			right = mid
-		} else if nums[mid] < target {
-			left = mid
+		if nums[mid] < target {
+			left = mid + 1
+		} else if target < nums[mid] {
+			right = mid - 1
 		} else {
 			return mid
 		}
