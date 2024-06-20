@@ -6,7 +6,6 @@ require (
 	github.com/PuerkitoBio/goquery v1.8.0 // indirect
 	github.com/antchfx/htmlquery v1.2.4 // indirect
 	github.com/antchfx/xmlquery v1.3.9 // indirect
-	github.com/bwmarrin/snowflake v0.3.0
 	github.com/clbanning/mxj/v2 v2.5.7
 	github.com/fatih/structs v1.1.0
 	github.com/gin-gonic/gin v1.8.1
@@ -19,5 +18,5 @@ require (
 	github.com/stretchr/testify v1.8.1
 	github.com/temoto/robotstxt v1.1.2 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	go.uber.org/zap v1.27.0 // indirect
+	go.uber.org/zap v1.27.0
 )

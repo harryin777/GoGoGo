@@ -35,7 +35,7 @@ func TestSelectionSort(t *testing.T) {
 }
 
 func TestInsertSort(t *testing.T) {
-	fmt.Println(InsertSort([]int{10, 4, 3, 6, 2, 1, 0}))
+	fmt.Println(InsertSort([]int{4, 2, 3, 1}))
 	fmt.Println(Insert2([]int{10, 4, 3, 6, 2, 1, 0}))
 	fmt.Println(Insert4([]int{10, 4, 3, 6, 2, 1, 0}))
 	fmt.Println(Insert5([]int{10, 4, 3, 6, 2, 1, 0}))
