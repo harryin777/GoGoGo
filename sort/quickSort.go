@@ -10,6 +10,7 @@ func QuickSort(arr []int, left, right int) (res []int) {
 	tmp := arr[i]
 	for i < j {
 		// 注意这里一定要有等于，因为起始元素tmp和arr[i]是相同的
+		// 注意这里的顺序,一定是先 j 后 i
 		for i < j && tmp <= arr[j] {
 			j--
 		}
