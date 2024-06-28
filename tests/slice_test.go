@@ -2,9 +2,57 @@ package tests
 
 import (
 	"fmt"
+	"reflect"
 	"test1/Utils"
 	"testing"
+	"unsafe"
 )
+
+// 关于在递归调用中， arr为什么在下层的修改对上层不可见，具体表现在arr在level = 1的时候增加了1元素，但是在level= 0的时候进行第二次递归，1元素数量还是1个
+// 在递归调用中进行 append 操作时，虽然 arr 的底层数组没有变化，但 arr 切片的长度和容量在每次递归调用中是不同的。
+// 因此，调用者的 arr 切片在第二次递归调用时并未包含第一个递归调用中的 append 操作的结果。
+// 根据arr的地址，len，cap可以新建一个slice，这个slice里面确实有两个1元素，证明不同层的调用虽然共享了底层数组但是并不共享cap和len
+func d1(arr []int, level int) {
+	if len(arr) == 2 {
+		return
+	}
+	if level == 0 {
+		fmt.Printf("before first d1 : %v \n", GetSliceArrayContent(arr))
+	}
+	arr = append(arr, 1)
+	fmt.Printf("level : %v, addr : %p \n", level, arr)
+	d1(arr, level+1)
+	if level == 0 {
+		fmt.Printf("after first d1 : %v \n", GetSliceArrayContent(arr))
+	}
+	d1(arr, level+1)
+}
+
+func GetSliceArrayContent(slice interface{}) interface{} {
+	sliceVal := reflect.ValueOf(slice)
+	if sliceVal.Kind() != reflect.Slice {
+		return nil
+	}
+
+	// Get the address of the slice's underlying array
+	arrayPtr := unsafe.Pointer(sliceVal.Pointer())
+
+	// Create a slice header for the underlying array
+	arrayHeader := reflect.SliceHeader{
+		Data: uintptr(arrayPtr),
+		Len:  sliceVal.Cap(),
+		Cap:  sliceVal.Cap(),
+	}
+
+	// Create a slice from the array header
+	arrayVal := reflect.NewAt(reflect.SliceOf(sliceVal.Type().Elem()), unsafe.Pointer(&arrayHeader)).Elem()
+	return arrayVal.Interface()
+}
+
+func Test_d1(t *testing.T) {
+	arr := make([]int, 0, 10)
+	d1(arr, 0)
+}
 
 func TestPointer(t *testing.T) {
 	// 这是个数组
