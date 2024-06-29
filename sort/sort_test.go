@@ -29,20 +29,12 @@ func TestSelectionSort(t *testing.T) {
 	fmt.Printf("%#v ; %T \n", min, min)
 	fmt.Println(SelectionSort([]int{10, 4, 3, 6, 2, 1, 0}))
 	fmt.Println(Selection2([]int{10, 4, 3, 6, 2, 1, 0}))
-	fmt.Println(Selection3([]int{10, 4, 3, 6, 2, 1, 0}))
-	fmt.Println(Selection4([]int{10, 4, 3, 6, 2, 1, 0}))
-	fmt.Println(SelectionSort5([]int{10, 4, 3, 6, 2, 1, 0}))
-	fmt.Println(Selection6([]int{10, 4, 3, 6, 2, 1, 0}))
-	fmt.Println(Selection7([]int{10, 4, 3, 6, 2, 1, 0}))
+
 }
 
 func TestInsertSort(t *testing.T) {
-	fmt.Println(InsertSort([]int{4, 2, 3, 1}))
+	fmt.Println(InsertSort([]int{10, 4, 3, 6, 2, 1, 0}))
 	fmt.Println(Insert2([]int{10, 4, 3, 6, 2, 1, 0}))
-	fmt.Println(Insert4([]int{10, 4, 3, 6, 2, 1, 0}))
-	fmt.Println(Insert5([]int{10, 4, 3, 6, 2, 1, 0}))
-	fmt.Println(Insert6([]int{10, 4, 3, 6, 2, 1, 0}))
-	fmt.Println(Insert7([]int{10, 4, 3, 6, 2, 1, 0}))
 }
 
 func TestShellSort(t *testing.T) {
