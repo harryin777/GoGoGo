@@ -304,3 +304,9 @@ func TTTT(str string) int {
 	fmt.Printf("hello: %v \n", str)
 	return 1
 }
+
+func Test_t3(t *testing.T) {
+	a := 1
+	b := 1
+	fmt.Println(a & (b << 1))
+}
