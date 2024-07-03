@@ -16,12 +16,14 @@ import (
 	"time"
 )
 
-/**
+/*
+*
 * @Description: 测试Gosched 是让出当前cpu时间片没错，但是为什么主协程已经执行完毕
 子协程还可以继续执行，难道不应该主协程执行完之后，程序就结束了吗
 * @Param:
 * @return:
-**/
+*
+*/
 func Test_Gosched(t *testing.T) {
 	go func() {
 		for i := 0; i < 40; i++ {
@@ -252,13 +254,15 @@ var (
 	wg    sync.WaitGroup
 )
 
-/**
+/*
+*
 * @Description: atomic 包中的内容
 留意这里atomic.LoadInt32和atomic.StoreInt32两个函数，一个读取int32类型变量的值，
 一个是修改int32类型变量的值，这两个都是原子性的操作
 * @Param:
 * @return:
-**/
+*
+*/
 func Test_Atomic(t *testing.T) {
 	wg.Add(2)
 	go incCount()
@@ -277,11 +281,14 @@ func incCount() {
 	}
 }
 
-/**
-  @Description 有缓存的管道,有缓存的管道在最后被调用时,主线程会等待子线程,不会直接结束
-  @Param
-  @return
- **/
+/*
+*
+
+	 @Description 有缓存的管道,有缓存的管道在最后被调用时,主线程会等待子线程,不会直接结束
+	 @Param
+	 @return
+	*
+*/
 func Test_cacheChannel(t *testing.T) {
 	done := make(chan int, 10) // 带 10 个缓存
 
@@ -299,7 +306,7 @@ func Test_cacheChannel(t *testing.T) {
 	//}
 }
 
-//sync: negative WaitGroup counter 这个报错,就是多 done 了,导致 wg.add 的已经 done 成了负数
+// sync: negative WaitGroup counter 这个报错,就是多 done 了,导致 wg.add 的已经 done 成了负数
 func Test_wgDone(t *testing.T) {
 	var wg sync.WaitGroup
 	wg.Add(2)
@@ -326,4 +333,38 @@ func Test_WhyIsThereSoManyGorountines(t *testing.T) {
 		}
 		wg.Wait()
 	}()
+}
+
+func Test_2Goroutines(t *testing.T) {
+	var wg sync.WaitGroup
+	wg.Add(2)
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+
+	go func(wg *sync.WaitGroup, ch1, ch2 chan int) {
+		defer wg.Done()
+		for i := 0; i < 2; i++ {
+			select {
+			case <-ch1:
+				fmt.Println(i)
+				ch2 <- 2
+			}
+		}
+	}(&wg, ch1, ch2)
+
+	go func(wg *sync.WaitGroup, ch1, ch2 chan int) {
+		defer wg.Done()
+		for i := 0; i < 2; i++ {
+			select {
+			case <-ch2:
+				fmt.Printf("%c \n", i+97)
+				if i != 1 {
+					ch1 <- 1
+				}
+			}
+		}
+	}(&wg, ch1, ch2)
+	ch1 <- 1
+	wg.Wait()
+
 }
