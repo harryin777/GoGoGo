@@ -7,8 +7,8 @@ import (
 
 // LeftBound
 func LeftBound(nums []int, target int) int {
-	left, right := 0, len(nums)
-	if left > right {
+	left, right := 0, len(nums)-1
+	if left >= right {
 		return 0
 	}
 	for left < right {
@@ -23,13 +23,13 @@ func LeftBound(nums []int, target int) int {
 
 	// 判断 target 是否存在于 nums 中
 	// 如果越界，target 肯定不存在，返回 -1
-	if left < 0 || left >= len(nums) {
-		return -1
-	}
+	//if left < 0 || left >= len(nums) {
+	//	return -1
+	//}
 	// 判断一下 nums[left] 是不是 target
-	if nums[left] == target {
-		return left
-	}
+	//if nums[left] == target {
+	//	return left
+	//}
 	return -1
 }
 

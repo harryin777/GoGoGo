@@ -58,7 +58,7 @@ func Test_d1(t *testing.T) {
 
 func TestPointer(t *testing.T) {
 	// 这是个数组
-	arrayA := [3]int{100, 200, 300}
+	arrayA := [4]int{100, 200, 300, 400}
 	testArrayPoint1(&arrayA) // 1.传数组指针
 	// 注意这里, arrayB 本身是有一个新的地址没问题,但是 slice 底层是数组,slice 有三个属性,一个指针,一个长度,一个容量
 	// 指针指向数组开头,也就是说这里,arrayB 指向的地址和 arrayA 指向的地址是同一个数组
@@ -77,7 +77,7 @@ func TestPointer(t *testing.T) {
 	fmt.Printf("arrayB : %p , %v\n", &arrayB, arrayB)
 }
 
-func testArrayPoint1(x *[3]int) {
+func testArrayPoint1(x *[4]int) {
 	fmt.Printf("func test1 Array : %p , %v\n", x, *x)
 	(*x)[0] += 100
 }
@@ -330,4 +330,23 @@ func Test_SyncSlice(t *testing.T) {
 	time.Sleep(10000)
 
 	fmt.Println(len(s.data))
+}
+
+func Test_T1(t *testing.T) {
+	a := [...]int{1, 2, 3, 4}
+	b := a[1:3]
+	b[0] = 10
+	fmt.Println(a, b) // [1 10 3 4] [10 3]，a和b是一家人，b只是a的一部分切片而已
+	fmt.Printf("b的容量和长度: %v, %v \n", cap(b), len(b))
+	b = append(b, 100)
+	fmt.Printf("b的容量和长度: %v, %v \n", cap(b), len(b))
+	fmt.Println(a, b) // [1 10 3 100] [10 3 100]，a和b还是一家人，只是b切片的范围变大了，而且修改了a数组的最后一个元素,
+	// 注意这里，b 元素的最后一位和 a 元素最后一位是一样的，b 在最开始定义的时候长度是 2，起始点是在 a 的第 2
+	// 个索引上，并不是开头，所以如果 b 再次追加，容量就不够了，会触发扩容
+	b[0] = 0
+	fmt.Println(a, b) // [1 0 3 100] [0 3 100]，b的第一个元素变成了0，同时指向的a数组的第二个元素自然也变成了0
+	b = append(b, 200)
+	fmt.Println(a, b) // [1 0 3 100] [0 3 100 200]，b的再一次append使得b进行了扩容，导致a和b分家了，即b切片不再是a的封装
+	b[0] = 1
+	fmt.Println(a, b)
 }

@@ -1,168 +1,86 @@
 package sort
 
-import (
-	"fmt"
-)
-
 /*
 给定整数数组nums和k，
 请返回数组中第k个最大元素，
 请注意，你需要找的是数组排序后的第k个最大元素，
 而不是第k个不同的元素
+
+假定数组nums的长度为leng
+
+堆的最后一个节点的父节点下标为：leng/2-1
+
+任何一个下标为n的节点的左右子节点下标为：左子节点ln = n*2+1，右子节点rn = n*2+2。
+前提是ln和rn小于leng-1,即没有下标溢出，若溢出表明没有该子节点
 */
 func swap(a, b *int) {
 	*a, *b = *b, *a
 }
 
-func HeapSort(nums []int) []int {
-	// 堆排序,只能确认第一次个数是最大或最小的
-	// 调换第一个元素和最后一个元素位置、从0倒数第二个继续堆排序
-	i := len(nums)
-	for i > 1 {
-		buildHeap(nums, i)
-		swap(&nums[0], &nums[i-1])
-		i--
+func HeapSort(arr []int) []int {
+	n := len(arr)
+
+	// 构建最大堆
+	for i := n/2 - 1; i >= 0; i-- {
+		heapify(arr, n, i)
+	}
+	//fmt.Println(arr)
+
+	// 一个个从堆顶取出元素
+	for i := n - 1; i > 0; i-- {
+		swap(&arr[0], &arr[i]) // 将当前最大值移到数组末尾
+		heapify(arr, i, 0)     // 重新堆化，但不包括已排序的元素
 	}
 
-	return nums
+	return arr
 }
 
-func HeapSort2(nums []int) []int {
-	i := len(nums)
-	for i > 1 {
-		buildHeap(nums, i)
-		swap(&nums[0], &nums[i-1])
-		i--
+func heapify(arr []int, n, i int) {
+	largest := i
+	left := 2*i + 1
+	right := 2*i + 2
+
+	if left < n && arr[left] > arr[largest] {
+		largest = left
+	}
+	if right < n && arr[right] > arr[largest] {
+		largest = right
 	}
 
-	return nums
-}
-
-func HeapSort3(nums []int) []int {
-	i := len(nums)
-
-	for i > 1 {
-		buildHeap(nums, i)
-		swap(&nums[0], &nums[i-1])
-		i--
-	}
-
-	return nums
-}
-
-func HeapSort4(nums []int) []int {
-	i := len(nums)
-	for i > 1 {
-		buildHeap4(nums, i)
-		swap(&nums[0], &nums[i-1])
-		i--
-	}
-
-	return nums
-}
-
-func buildHeap(nums []int, len int) {
-	// 找到最后一个节点的父节点
-	parent := len/2 - 1
-	for parent >= 0 {
-		heapify(nums, parent, len)
-		parent--
-	}
-	//fmt.Println(nums[0:len])
-
-}
-
-func buildHeap2(nums []int, len int) {
-	parent := len/2 - 1
-	for parent >= 0 {
-		heapify(nums, parent, len)
-		parent--
-	}
-	fmt.Println(nums[0:len])
-}
-
-func buildHeap3(nums []int, len int) {
-	parent := len/2 - 1
-
-	for parent >= 0 {
-		heapify(nums, parent, len)
-		parent--
-	}
-
-	fmt.Println(nums[0:len])
-}
-
-func buildHeap4(nums []int, len int) {
-	parent := len/2 - 1
-	for parent >= 0 {
-		heapfiy4(nums, parent, len)
-		parent--
+	if largest != i {
+		swap(&arr[i], &arr[largest])
+		heapify(arr, n, largest)
 	}
 }
 
-func heapify(nums []int, parent, len int) {
-	// 判断两个子节点是否比父节点大，如果是的话替换
-	max := parent
-	lson := parent*2 + 1
-	rson := parent*2 + 2
-	if lson < len && nums[lson] > nums[max] {
-		// 左节点是否大于父节点
+func HeapSort2(arr []int) []int {
+	n := len(arr)
+
+	for i := n/2 - 1; i >= 0; i-- {
+		heaplify(arr, n, i)
+	}
+
+	for i := n - 1; i > 0; i-- {
+		swap(&arr[0], &arr[i])
+		heaplify(arr, i, 0)
+	}
+
+	return arr
+}
+
+func heaplify(arr []int, n, i int) {
+	max := i
+	lson := i*2 + 1
+	rson := i*2 + 2
+	if lson < n && arr[lson] > arr[max] {
 		max = lson
 	}
-	if rson < len && nums[rson] > nums[max] {
-		// 右节点是否大于父节点
+	if rson < n && arr[rson] > arr[max] {
 		max = rson
 	}
-	if parent != max {
-		swap(&nums[max], &nums[parent])
-		heapify(nums, max, len)
+	if max != i {
+		swap(&arr[i], &arr[max])
+		heapify(arr, n, max)
 	}
-}
 
-func heapify2(nums []int, parent, len int) {
-	max := parent
-	lson := parent*2 + 1
-	rson := parent*2 + 2
-	if lson < len && nums[lson] > nums[max] {
-		max = lson
-	}
-	if rson < len && nums[rson] > nums[max] {
-		max = rson
-	}
-	if parent != max {
-		swap(&nums[max], &nums[parent])
-		heapify2(nums, max, len)
-	}
-}
-
-func heapify3(nums []int, parent, len int) {
-	max := parent
-	lson := parent*2 + 1
-	rson := parent*2 + 2
-	for lson < len && nums[lson] > nums[max] {
-		max = lson
-	}
-	for rson < len && nums[rson] > nums[max] {
-		max = rson
-	}
-	if parent != max {
-		swap(&nums[max], &nums[parent])
-		heapify3(nums, max, len)
-	}
-}
-
-func heapfiy4(nums []int, parent, len int) {
-	max := parent
-	lson := parent*2 + 1
-	rson := parent*2 + 2
-	for lson < len && nums[lson] > nums[max] {
-		max = lson
-	}
-	for rson < len && nums[rson] > nums[max] {
-		max = rson
-	}
-	if parent != max {
-		swap(&nums[max], &nums[parent])
-		heapfiy4(nums, max, len)
-	}
 }

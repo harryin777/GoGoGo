@@ -52,3 +52,21 @@ func TestClosePackage(t *testing.T) {
 	fmt.Println(in())
 	fmt.Println(in())
 }
+
+// 在嵌套以后得recover是没用的
+func multiDefer() {
+	defer func() {
+		fmt.Println("outter defer")
+		defer func() {
+			fmt.Println("inner defer")
+			if r := recover(); r != nil {
+				fmt.Println("got panic inner")
+			}
+		}()
+	}()
+	panic("test")
+}
+
+func Test_MultiDefer(t *testing.T) {
+	multiDefer()
+}

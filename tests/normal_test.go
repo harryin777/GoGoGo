@@ -308,5 +308,11 @@ func TTTT(str string) int {
 func Test_t3(t *testing.T) {
 	a := 1
 	b := 1
-	fmt.Println(a & (b << 1))
+	fmt.Println((a & b) << 1)
+}
+
+func Test_t4(t *testing.T) {
+	a := uint8(2)
+	b := uint8(255)
+	fmt.Println(a + b)
 }

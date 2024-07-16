@@ -42,8 +42,8 @@ func TestShellSort(t *testing.T) {
 }
 
 func TestHeapSort(t *testing.T) {
-	fmt.Println(HeapSort([]int{10, 4, 3, 6, 2, 1, 0}))
-	fmt.Println(HeapSort4([]int{10, 4, 3, 6, 2, 1, 0}))
+	fmt.Println(HeapSort([]int{10, 4, 3, 6, 2, 7, 0}))
+	fmt.Println(HeapSort2([]int{10, 4, 3, 6, 2, 7, 0}))
 }
 
 func TestCountSort(t *testing.T) {

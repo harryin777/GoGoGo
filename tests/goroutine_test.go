@@ -368,3 +368,28 @@ func Test_2Goroutines(t *testing.T) {
 	wg.Wait()
 
 }
+
+func Test_2G2(t *testing.T) {
+	ch := make(chan bool)
+	go printLetters(ch)
+	printNumbers(ch)
+}
+
+func printLetters(ch chan bool) {
+	for _, letter := range "ABCDEFGHIJ" {
+		fmt.Println(string(letter))
+		time.Sleep(100 * time.Millisecond)
+		ch <- true
+		<-ch
+	}
+	close(ch)
+}
+
+func printNumbers(ch chan bool) {
+	for i := 1; i <= 10; i++ {
+		<-ch
+		fmt.Println(i)
+		time.Sleep(100 * time.Millisecond)
+		ch <- true
+	}
+}
