@@ -370,26 +370,23 @@ func Test_2Goroutines(t *testing.T) {
 }
 
 func Test_2G2(t *testing.T) {
-	ch := make(chan bool)
+	ch := make(chan int)
 	go printLetters(ch)
 	printNumbers(ch)
 }
 
-func printLetters(ch chan bool) {
-	for _, letter := range "ABCDEFGHIJ" {
-		fmt.Println(string(letter))
-		time.Sleep(100 * time.Millisecond)
-		ch <- true
-		<-ch
+func printLetters(c chan int) {
+	for _, val := range "abcdefg" {
+		<-c
+		fmt.Println(string(val))
+		c <- 1
 	}
-	close(ch)
 }
 
-func printNumbers(ch chan bool) {
-	for i := 1; i <= 10; i++ {
-		<-ch
+func printNumbers(c chan int) {
+	for i := 0; i < 7; i++ {
 		fmt.Println(i)
-		time.Sleep(100 * time.Millisecond)
-		ch <- true
+		c <- 1
+		<-c
 	}
 }

@@ -84,3 +84,62 @@ func heaplify(arr []int, n, i int) {
 	}
 
 }
+
+func findKthLargest(nums []int, k int) int {
+	if k > len(nums) {
+		return 0
+	}
+	hp := &heapSort{
+		size: k,
+		arr:  []int{},
+	}
+
+	for i := 0; i < len(nums); i++ {
+		hp.add(nums[i])
+	}
+	return hp.arr[0]
+}
+
+type heapSort struct {
+	arr  []int
+	size int
+}
+
+func (hp *heapSort) add(num int) {
+	if len(hp.arr) < hp.size {
+		hp.arr = append(hp.arr, num)
+		for i := len(hp.arr) - 1; i > 0; {
+			parent := (i - 1) / 2
+			if parent >= 0 && hp.arr[parent] > hp.arr[i] {
+				hp.swap(parent, i)
+				i = parent
+			} else {
+				break
+			}
+		}
+	} else if num > hp.arr[0] {
+		hp.arr[0] = num
+		hp.heapify(0)
+	}
+}
+
+func (hp *heapSort) heapify(i int) {
+	max := i
+	lson := i*2 + 1
+	rson := i*2 + 2
+	n := len(hp.arr)
+	for lson < n && hp.arr[lson] < hp.arr[max] {
+		max = lson
+	}
+	for rson < n && hp.arr[rson] < hp.arr[max] {
+		max = rson
+	}
+	if max != i {
+		hp.swap(i, max)
+		hp.heapify(max)
+	}
+}
+
+func (hp *heapSort) swap(i, j int) {
+	hp.arr[i], hp.arr[j] = hp.arr[j], hp.arr[i]
+}

@@ -5,12 +5,33 @@ import (
 	"math"
 )
 
+// BS 这种才是二分, 上面那个还是要遍历
+func BS(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+	count := 0
+	for left < right {
+		count++
+		fmt.Printf("BS %d \n", count)
+		mid := (left + right) >> 1
+		if nums[mid] < target {
+			left = mid + 1
+		} else if target < nums[mid] {
+			right = mid - 1
+		} else {
+			return mid
+		}
+	}
+
+	return left
+}
+
 // LeftBound
 func LeftBound(nums []int, target int) int {
 	left, right := 0, len(nums)-1
 	if left >= right {
 		return 0
 	}
+	// 这里如果加等于有无限循环的可能，因为下面有边界是 right = mid
 	for left < right {
 		mid := (left + right) >> 1
 		// 为什么可以找到左边界，因为在找到target的时候没有立即返回，而是缩小了搜索的右边界
@@ -23,13 +44,14 @@ func LeftBound(nums []int, target int) int {
 
 	// 判断 target 是否存在于 nums 中
 	// 如果越界，target 肯定不存在，返回 -1
-	//if left < 0 || left >= len(nums) {
-	//	return -1
-	//}
-	// 判断一下 nums[left] 是不是 target
-	//if nums[left] == target {
-	//	return left
-	//}
+	if left < 0 || left >= len(nums) {
+		return -1
+	}
+	// 判断一下 nums[left] 是不是 target 为什么要加这个判断，因为最上面的循环终止条件是left = right，
+	// 而有可能right = len -1 这时候有边界就没有搜索到
+	if nums[left] == target {
+		return left
+	}
 	return -1
 }
 
@@ -93,24 +115,4 @@ func TripleOne(target float64) {
 	}
 
 	fmt.Printf("%.6f", mid)
-}
-
-// BS 这种才是二分, 上面那个还是要遍历
-func BS(nums []int, target int) int {
-	left, right := 0, len(nums)-1
-	count := 0
-	for left < right {
-		count++
-		fmt.Printf("BS %d \n", count)
-		mid := (left + right) >> 1
-		if nums[mid] < target {
-			left = mid + 1
-		} else if target < nums[mid] {
-			right = mid - 1
-		} else {
-			return mid
-		}
-	}
-
-	return left
 }
