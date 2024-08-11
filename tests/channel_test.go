@@ -78,3 +78,33 @@ func TestChannelCache(t *testing.T) {
 	time.Sleep(1 * time.Second)
 
 }
+
+func producer(c chan int, str string) {
+	for i := 0; i < 10; i++ {
+		fmt.Printf("this is %v producer \n", str)
+		c <- i
+	}
+	close(c)
+}
+
+func consumer(c chan int, str string) {
+	for {
+		select {
+		case msg, ok := <-c:
+			if ok {
+				fmt.Printf("this is %v consume : %v \n", str, msg)
+			} else {
+				return
+			}
+		}
+	}
+}
+
+func Test_ProConsumer(t *testing.T) {
+	c := make(chan int)
+	go func() {
+		consumer(c, "222")
+	}()
+	producer(c, "111")
+
+}

@@ -53,36 +53,36 @@ func heapify(arr []int, n, i int) {
 	}
 }
 
-func HeapSort2(arr []int) []int {
-	n := len(arr)
+// https://www.cnblogs.com/chengxiao/p/6129630.html
+func HeapSort2(nums []int) []int {
+	n := len(nums)
 
 	for i := n/2 - 1; i >= 0; i-- {
-		heaplify(arr, n, i)
+		heaplify(nums, n, i)
 	}
 
 	for i := n - 1; i > 0; i-- {
-		swap(&arr[0], &arr[i])
-		heaplify(arr, i, 0)
+		swap(&nums[i], &nums[0])
+		heapify(nums, i, 0)
 	}
 
 	return arr
 }
 
-func heaplify(arr []int, n, i int) {
-	max := i
-	lson := i*2 + 1
-	rson := i*2 + 2
-	if lson < n && arr[lson] > arr[max] {
-		max = lson
+func heaplify(nums []int, n, i int) {
+	largest := i
+	lson := 2*i + 1
+	rson := 2*i + 2
+	for lson < n && nums[lson] > nums[largest] {
+		largest = lson
 	}
-	if rson < n && arr[rson] > arr[max] {
-		max = rson
+	for rson < n && nums[rson] > nums[largest] {
+		largest = rson
 	}
-	if max != i {
-		swap(&arr[i], &arr[max])
-		heapify(arr, n, max)
+	if largest != i {
+		swap(&nums[largest], &nums[i])
+		heaplify(nums, n, largest)
 	}
-
 }
 
 func findKthLargest(nums []int, k int) int {

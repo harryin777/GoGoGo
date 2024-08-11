@@ -22,10 +22,6 @@ func TestBubbleSort(t *testing.T) {
 }
 
 func TestSelectionSort(t *testing.T) {
-	val := int(^uint(0) >> 1)
-	min := ^val
-	fmt.Printf("%#v ; %T \n", val, val)
-	fmt.Printf("%#v ; %T \n", min, min)
 	fmt.Println(SelectionSort([]int{10, 4, 3, 6, 2, 1, 0}))
 	fmt.Println(Selection2([]int{10, 4, 3, 6, 2, 1, 0}))
 

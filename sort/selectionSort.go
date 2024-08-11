@@ -27,14 +27,13 @@ func Selection2(arr []int) (res []int) {
 	for i := 0; i < len(arr); i++ {
 		standard := i
 		for j := i + 1; j < len(arr); j++ {
-			if arr[j] < arr[standard] {
+			if arr[standard] > arr[j] {
 				standard = j
 			}
 		}
 		if standard != i {
-			arr[i], arr[standard] = arr[standard], arr[i]
+			arr[standard], arr[i] = arr[i], arr[standard]
 		}
 	}
-
 	return arr
 }

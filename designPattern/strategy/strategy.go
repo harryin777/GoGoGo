@@ -16,7 +16,7 @@ var strategys = map[string]StorageStrategy{
 	"encrypt_file": &encryptFileStorage{},
 }
 
-// NewStorageStrategy NewStorageStrategy
+// NewStorageStrategy
 func NewStorageStrategy(t string) (StorageStrategy, error) {
 	s, ok := strategys[t]
 	if !ok {
@@ -29,7 +29,7 @@ func NewStorageStrategy(t string) (StorageStrategy, error) {
 // FileStorage 保存到文件
 type fileStorage struct{}
 
-// Save Save
+// Save
 func (s *fileStorage) Save(name string, data []byte) error {
 	return ioutil.WriteFile(name, data, os.ModeAppend)
 }
@@ -37,7 +37,7 @@ func (s *fileStorage) Save(name string, data []byte) error {
 // encryptFileStorage 加密保存到文件
 type encryptFileStorage struct{}
 
-// Save Save
+// Save
 func (s *encryptFileStorage) Save(name string, data []byte) error {
 	// 加密
 	data, err := encrypt(data)
