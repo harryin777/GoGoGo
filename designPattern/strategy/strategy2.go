@@ -7,6 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 另一种策略模式 https://www.cnblogs.com/amunote/p/15553288.html
+
 // 以下主要实现了为所有接口都提供一个校验参数的逻辑，具体这个逻辑可以定制化
 
 // 校验策略接口

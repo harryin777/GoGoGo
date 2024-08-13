@@ -10,9 +10,7 @@ func SelectionSort(arr []int) (res []int) {
 			}
 		}
 		if standard != i {
-			tmp := arr[i]
-			arr[i] = arr[standard]
-			arr[standard] = tmp
+			arr[i], arr[standard] = arr[standard], arr[i]
 		}
 	}
 

@@ -58,7 +58,7 @@ func HeapSort2(nums []int) []int {
 	n := len(nums)
 
 	for i := n/2 - 1; i >= 0; i-- {
-		heaplify(nums, n, i)
+		heapify(nums, n, i)
 	}
 
 	for i := n - 1; i > 0; i-- {
@@ -66,7 +66,7 @@ func HeapSort2(nums []int) []int {
 		heapify(nums, i, 0)
 	}
 
-	return arr
+	return nums
 }
 
 func heaplify(nums []int, n, i int) {
@@ -76,12 +76,14 @@ func heaplify(nums []int, n, i int) {
 	for lson < n && nums[lson] > nums[largest] {
 		largest = lson
 	}
+
 	for rson < n && nums[rson] > nums[largest] {
 		largest = rson
 	}
+
 	if largest != i {
 		swap(&nums[largest], &nums[i])
-		heaplify(nums, n, largest)
+		heapify(nums, n, largest)
 	}
 }
 

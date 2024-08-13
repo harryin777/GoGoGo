@@ -37,23 +37,24 @@ func Quick2(nums []int, left, right int) (res []int) {
 		return nums
 	}
 
-	i, j := left, right
-	mid := nums[i]
+	i := left
+	j := right
+	tmp := nums[i]
 	for i < j {
-		for i < j && nums[j] >= mid {
+		for i < j && nums[j] >= tmp {
 			j--
 		}
-		for i < j && nums[i] <= mid {
+		for i < j && nums[i] <= tmp {
 			i++
 		}
-		if i < j {
+		if i != j {
 			nums[i], nums[j] = nums[j], nums[i]
 		}
 	}
 	nums[left] = nums[i]
-	nums[i] = mid
+	nums[i] = tmp
 
-	nums = Quick2(nums, left, i-1)
-	nums = Quick2(nums, i+1, right)
+	Quick2(nums, left, i-1)
+	Quick2(nums, i+1, right)
 	return nums
 }
