@@ -1,4 +1,4 @@
-package dataStructure
+package RejectHandler
 
 // RejectHandler Reject push into queue if return false.
 //type RejectHandler func(ctx context.Context) bool
