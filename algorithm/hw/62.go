@@ -4,7 +4,7 @@ import "fmt"
 
 // https://dream.blog.csdn.net/article/details/129088380
 // 查找单入口空闲区域
-func main() {
+func main62() {
 	var row, col int
 	fmt.Scan(&row, &col)
 	grid := make([][]string, 0, row)
