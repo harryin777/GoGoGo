@@ -3,9 +3,6 @@ module test1
 go 1.23
 
 require (
-	github.com/PuerkitoBio/goquery v1.8.0 // indirect
-	github.com/antchfx/htmlquery v1.2.4 // indirect
-	github.com/antchfx/xmlquery v1.3.9 // indirect
 	github.com/clbanning/mxj/v2 v2.5.7
 	github.com/fatih/structs v1.1.0
 	github.com/gin-gonic/gin v1.8.1

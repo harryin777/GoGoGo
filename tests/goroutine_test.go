@@ -390,3 +390,24 @@ func printNumbers(c chan int) {
 		<-c
 	}
 }
+
+func Test_2G22(t *testing.T) {
+	var wg sync.WaitGroup
+	wg.Add(2)
+	c := make(chan int)
+	go func(c chan int, wg *sync.WaitGroup) {
+		for i := 0; i < 5; i++ {
+			c <- i
+		}
+		wg.Done()
+	}(c, &wg)
+
+	go func(c chan int, wg *sync.WaitGroup) {
+		for i := 0; i < 5; i++ {
+			val := <-c
+			fmt.Println(val)
+		}
+		wg.Done()
+	}(c, &wg)
+	wg.Wait()
+}
