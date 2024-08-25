@@ -4,6 +4,10 @@ import (
 	"fmt"
 )
 
+/**
+密码解密
+*/
+
 func main81() {
 	var str string
 	fmt.Scanln(&str)

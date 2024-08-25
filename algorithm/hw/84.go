@@ -9,7 +9,7 @@ import (
 /*
 *找座位
  */
-func main() {
+func main84() {
 	var str string
 	fmt.Scanln(&str)
 	strArr := strings.Split(str, ",")
