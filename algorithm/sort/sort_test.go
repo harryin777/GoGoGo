@@ -12,8 +12,8 @@ func TestMergeSort1(t *testing.T) {
 
 func TestQuickSort(t *testing.T) {
 	//fmt.Println(QuickSort([]int{4, 2, 1, 3}, 0, 3))
-	fmt.Println(QuickSort([]int{1, 3, 2}, 0, 2))
-	//fmt.Println(QuickSort([]int{10, 4, 3, 6, 2, 1, 0}, 0, 6))
+	//fmt.Println(QuickSort([]int{1, 3, 2}, 0, 2))
+	fmt.Println(QuickSort([]int{10, 4, 3, 6, 2, 1, 0}, 0, 6))
 	fmt.Println(Quick2([]int{10, 4, 3, 6, 2, 1, 0}, 0, 6))
 }
 
