@@ -56,13 +56,12 @@ func LeftBound(nums []int, target int) int {
 }
 
 func RightBound(nums []int, target int) int {
-	left, right := 0, len(nums)
+	left, right := 0, len(nums)-1
 	if left > right {
 		return 0
 	}
 	for left < right {
 		mid := (left + right) >> 1
-		// 能够找到右边界的原因是在 mid  <= target 的情况下，缩短了左边界
 		if nums[mid] > target {
 			right = mid
 		} else {
@@ -70,7 +69,7 @@ func RightBound(nums []int, target int) int {
 		}
 	}
 
-	return left
+	return left - 1
 }
 
 func TripleOne(target float64) {
