@@ -1,4 +1,4 @@
-package goroutinePool
+package main
 
 import (
 	"fmt"
@@ -54,10 +54,10 @@ func (p *Pool) Wait() {
 
 func main() {
 	// 创建一个协程池，设置工作协程数为3
-	pool := NewPool(3)
+	pool := NewPool(10)
 
 	// 添加任务到协程池
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 1000; i++ {
 		taskID := i
 		task := Task{
 			ID: taskID,

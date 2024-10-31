@@ -5,13 +5,10 @@ import (
 	"math"
 )
 
-// BS 这种才是二分, 上面那个还是要遍历
+// BS
 func BS(nums []int, target int) int {
 	left, right := 0, len(nums)-1
-	count := 0
 	for left < right {
-		count++
-		fmt.Printf("BS %d \n", count)
 		mid := (left + right) >> 1
 		if nums[mid] < target {
 			left = mid + 1
@@ -25,12 +22,26 @@ func BS(nums []int, target int) int {
 	return left
 }
 
+func BS2(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+	for left <= right {
+		mid := left + (right-left)/2
+		if nums[mid] == target {
+			return mid
+		} else if nums[mid] < target {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+
+	return -1
+}
+
 // LeftBound
 func LeftBound(nums []int, target int) int {
 	left, right := 0, len(nums)-1
-	if left >= right {
-		return 0
-	}
+
 	// 这里如果加等于有无限循环的可能，因为下面有边界是 right = mid
 	for left < right {
 		mid := (left + right) >> 1
@@ -55,13 +66,43 @@ func LeftBound(nums []int, target int) int {
 	return -1
 }
 
+func leftBound(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+	for left < right {
+		mid := left + (right-left)/2
+		if nums[mid] >= target {
+			right = mid
+		} else {
+			left = mid + 1
+		}
+	}
+
+	if left < len(nums) && nums[left] == target {
+		return left
+	}
+
+	return -1
+}
+
 func RightBound(nums []int, target int) int {
 	left, right := 0, len(nums)-1
-	if left > right {
-		return 0
-	}
+
 	for left < right {
 		mid := (left + right) >> 1
+		if nums[mid] > target {
+			right = mid
+		} else {
+			left = mid + 1
+		}
+	}
+
+	return left - 1
+}
+
+func rightBound(nums []int, target int) int {
+	left, right := 0, len(nums)
+	for left < right {
+		mid := left + (right-left)/2
 		if nums[mid] > target {
 			right = mid
 		} else {

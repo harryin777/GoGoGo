@@ -31,9 +31,11 @@ func Merge1(nums []int) []int {
 	if len(nums) <= 1 {
 		return nums
 	}
+
 	mid := len(nums) / 2
 	arrL := Merge1(nums[:mid])
 	arrR := Merge1(nums[mid:])
+
 	return Merge2(arrL, arrR)
 }
 
@@ -41,7 +43,7 @@ func Merge2(l, r []int) []int {
 	i, j := 0, 0
 	ans := make([]int, 0, len(l)+len(r))
 	for i < len(l) && j < len(r) {
-		if l[i] <= r[j] {
+		if l[i] < r[j] {
 			ans = append(ans, l[i])
 			i++
 		} else {
@@ -49,8 +51,9 @@ func Merge2(l, r []int) []int {
 			j++
 		}
 	}
+
 	ans = append(ans, l[i:]...)
 	ans = append(ans, r[j:]...)
 
-	return arr
+	return ans
 }

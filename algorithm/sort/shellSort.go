@@ -13,8 +13,8 @@ func ShellSort(arr []int) []int {
 	for pace > 0 {
 		for i := 0; i < len(arr); i += pace {
 			min := arr[i]
-			var j = 0
-			for j = i; j > 0; j -= pace {
+			var j = i
+			for ; j > 0; j -= pace {
 				if arr[j-pace] > min {
 					arr[j] = arr[j-pace]
 				} else {

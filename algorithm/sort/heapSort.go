@@ -53,37 +53,38 @@ func heapify(arr []int, n, i int) {
 	}
 }
 
-// https://www.cnblogs.com/chengxiao/p/6129630.html
-func HeapSort2(nums []int) []int {
+func heapSort2(nums []int) []int {
+	if len(nums) == 1 {
+		return nums
+	}
+
 	n := len(nums)
 
 	for i := n/2 - 1; i >= 0; i-- {
-		heapify(nums, n, i)
+		heaplify2(nums, i, n)
 	}
 
 	for i := n - 1; i > 0; i-- {
-		swap(&nums[i], &nums[0])
-		heapify(nums, i, 0)
+		swap(&nums[0], &nums[i])
+		heaplify2(nums, 0, i)
 	}
 
 	return nums
 }
 
-func heaplify(nums []int, n, i int) {
+func heaplify2(nums []int, i, n int) {
 	largest := i
-	lson := 2*i + 1
-	rson := 2*i + 2
-	for lson < n && nums[lson] > nums[largest] {
+	lson := i*2 + 1
+	rson := i*2 + 2
+	if lson < n && nums[lson] > nums[largest] {
 		largest = lson
 	}
-
-	for rson < n && nums[rson] > nums[largest] {
+	if rson < n && nums[rson] > nums[largest] {
 		largest = rson
 	}
-
 	if largest != i {
-		swap(&nums[largest], &nums[i])
-		heapify(nums, n, largest)
+		swap(&nums[i], &nums[largest])
+		heaplify2(nums, largest, n)
 	}
 }
 
