@@ -1,5 +1,6 @@
 package sort
 
+// 稳定
 func MergeSort2(left, right []int) (res []int) {
 	i := 0
 	j := 0

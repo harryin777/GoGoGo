@@ -1,5 +1,6 @@
 package sort
 
+// 稳定
 func InsertSort(arr []int) (res []int) {
 	if len(arr) == 1 {
 		return arr

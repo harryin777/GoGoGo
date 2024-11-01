@@ -1,5 +1,6 @@
 package sort
 
+// 不稳定
 func QuickSort(arr []int, left, right int) (res []int) {
 	if left > right {
 		return arr

@@ -57,7 +57,7 @@ func main() {
 	pool := NewPool(10)
 
 	// 添加任务到协程池
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 1; i++ {
 		taskID := i
 		task := Task{
 			ID: taskID,

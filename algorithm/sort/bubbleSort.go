@@ -1,5 +1,6 @@
 package sort
 
+// 稳定
 func BubbleSort(arr []int) (res []int) {
 	for i := 0; i < len(arr); i++ {
 		for j := 0; j < len(arr); j++ {
