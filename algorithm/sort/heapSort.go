@@ -54,39 +54,35 @@ func heapify(arr []int, n, i int) {
 	}
 }
 
-func heapSort2(nums []int) []int {
-	if len(nums) == 1 {
-		return nums
+func heapSort2(arr []int) []int {
+	for i := len(arr)/2 - 1; i >= 0; i-- {
+		heapify2(arr, len(arr), i)
 	}
 
-	n := len(nums)
-
-	for i := n/2 - 1; i >= 0; i-- {
-		heaplify2(nums, i, n)
+	for i := len(arr) - 1; i > 0; i-- {
+		swap(&arr[i], &arr[0])
+		heapify2(arr, i, 0)
 	}
 
-	for i := n - 1; i > 0; i-- {
-		swap(&nums[0], &nums[i])
-		heaplify2(nums, 0, i)
-	}
-
-	return nums
+	return arr
 }
 
-func heaplify2(nums []int, i, n int) {
+func heapify2(arr []int, n, i int) []int {
 	largest := i
 	lson := i*2 + 1
 	rson := i*2 + 2
-	if lson < n && nums[lson] > nums[largest] {
+	if lson < n && arr[lson] > arr[largest] {
 		largest = lson
 	}
-	if rson < n && nums[rson] > nums[largest] {
+	if rson < n && arr[rson] > arr[largest] {
 		largest = rson
 	}
 	if largest != i {
-		swap(&nums[i], &nums[largest])
-		heaplify2(nums, largest, n)
+		swap(&arr[largest], &arr[i])
+		heapify2(arr, n, largest)
 	}
+
+	return arr
 }
 
 func findKthLargest(nums []int, k int) int {

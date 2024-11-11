@@ -33,27 +33,30 @@ func QuickSort(arr []int, left, right int) (res []int) {
 	return res
 }
 
-func Quick2(nums []int, left, right int) (res []int) {
+func Quick2(arr []int, left, right int) []int {
 	if left > right {
-		return nums
+		return arr
 	}
+
 	i, j := left, right
-	tmp := nums[i]
+	tmp := arr[i]
 	for i < j {
-		for i < j && nums[j] >= tmp {
+		for i < j && arr[j] >= tmp {
 			j--
 		}
-		for i < j && nums[i] <= tmp {
+		for i < j && arr[i] <= tmp {
 			i++
 		}
 		if i < j {
-			nums[i], nums[j] = nums[j], nums[i]
+			arr[i], arr[j] = arr[j], arr[i]
 		}
 	}
-	nums[left] = nums[i]
-	nums[i] = tmp
+	arr[left] = arr[i]
+	arr[i] = tmp
 
-	nums = Quick2(nums, left, i-1)
-	nums = Quick2(nums, i+1, right)
-	return nums
+	res := make([]int, 0, len(arr))
+	res = Quick2(arr, left, i-1)
+	res = Quick2(arr, i+1, right)
+
+	return res
 }
