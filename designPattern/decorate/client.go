@@ -43,13 +43,13 @@ func NewClientWrapper(key string) Wrapper {
 	}
 }
 
-func main() {
-	// 创建默认客户端
-	var cl Client = &DefaultClient{}
-
-	// 包装客户端，添加分片逻辑
-	cl = NewClientWrapper("ShardKey")(cl)
-
-	// 调用包装后的客户端方法
-	fmt.Println(cl.DoSomething())
-}
+//func main() {
+//	// 创建默认客户端
+//	var cl Client = &DefaultClient{}
+//
+//	// 包装客户端，添加分片逻辑
+//	cl = NewClientWrapper("ShardKey")(cl)
+//
+//	// 调用包装后的客户端方法
+//	fmt.Println(cl.DoSomething())
+//}
