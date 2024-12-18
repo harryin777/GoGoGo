@@ -19,7 +19,8 @@ func main() {
 	//本地绑定端口
 	port, _ := strconv.Atoi(os.Args[4])
 	//客户端标识
-	tag := os.Args[1]
+	source := os.Args[1]
+	target := os.Args[5]
 	//服务器IP
 	remoteIP := os.Args[2]
 	//服务器端口
@@ -33,7 +34,7 @@ func main() {
 	}
 
 	//发送消息，提供身份
-	conn.Write([]byte("I am SEVERA" + tag))
+	conn.Write([]byte(fmt.Sprintf("%v:%v", source, target)))
 	//从服务器中获得目标地址
 	buf := make([]byte, 256)
 	n, _, err := conn.ReadFromUDP(buf)
