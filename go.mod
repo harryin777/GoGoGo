@@ -14,6 +14,7 @@ require (
 	github.com/shopspring/decimal v1.3.1
 	github.com/spf13/viper v1.15.0
 	github.com/stretchr/testify v1.8.1
+	golang.org/x/sync v0.1.0
 )
 
 require (
