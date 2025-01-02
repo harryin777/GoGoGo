@@ -184,23 +184,6 @@ func TestDeepCopy(t *testing.T) {
 	fmt.Println(tmp1)
 }
 
-// 指定索引初始化slice
-func TestAssignIndex(t *testing.T) {
-	// 指定了索引，但是前后两个位置冲突了，所以报错
-	//a := []int{2: 2, 3, 1: 5, 6}
-}
-
-func TestInitArray(t *testing.T) {
-	a := [...]int{1, 2}
-	b := [2]int{1, 2}
-	c := []int{1, 2}
-	_ = c
-	fmt.Println(len(a))
-	fmt.Println(a == b)
-	// c 是一个 slice a,b 都是数组
-	//fmt.Println(a == c)
-}
-
 /*
 	模拟了一个一对多的场景,A 对 B,在乱序的情况下,map 里存放了 A 的地址,后续遍历的时候,如果 A 的地址相同,则认为是同一个 A
 
